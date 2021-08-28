@@ -1,0 +1,34 @@
+
+const mongoose = require("mongoose");
+const schemas = require("../database_schemas/database_schema.js");
+
+
+//Connect with MongoDB
+const mongoURL = "mongodb://localhost:27017/classroomDB";
+function ConnectWithDatabase(){
+    mongoose.connect(mongoURL, { useNewUrlParser: true }, () => {
+    console.log("Connected to MongoDB Database");
+});
+}
+
+
+const UserSchema = mongoose.model("userSchema", schemas.UserSchema);
+const LectureSchema = mongoose.model("lectureSchema", schemas.LectureSchema);
+const ContentSchema = mongoose.model("contentSchema", schemas.ContentSchema);
+const AssignmentsSchema = mongoose.model("assignmentsSchema", schemas.AssignmentsSchema);
+const SubjectSchema = mongoose.model("subjectsSchema", schemas.SubjectSchema);
+const MarkAssignmentsSchema = mongoose.model("makrsAssignmentsSchema", schemas.MarkAssignmentsSchema);
+const StudentSchema = mongoose.model("studentSchema", schemas.StudentSchema);
+const TeacherSchema = mongoose.model("teachersSchema", schemas.TeacherSchema);
+
+module.exports = {
+    UserSchema,
+    LectureSchema,
+    ContentSchema,
+    AssignmentsSchema,
+    SubjectSchema,
+    MarkAssignmentsSchema,
+    StudentSchema,
+    TeacherSchema,
+    ConnectWithDatabase
+};
