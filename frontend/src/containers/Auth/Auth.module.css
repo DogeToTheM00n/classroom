@@ -1,0 +1,64 @@
+.Container {
+  margin-top: 7vh;
+  background-color:white;
+  width: 70vw;
+  margin-left: auto;
+  padding: 5vh 10vw;
+  border: 1px solid #06442027;
+  box-shadow: 1px 4px 8px 1px rgba(0,0,0,0.2);
+  border-radius: 1%;
+}
+.H1 {
+  text-align: center;
+  color: #064420;
+  font-weight: bold;
+}
+.Font {
+  color: #064420;
+}
+.Label {
+  font-weight: bold;
+  font-size: 1vw;
+}
+.P{
+  font-weight: bold;
+  font-size: 1vw;
+}
+.Vr {
+  border-left: 6px solid #06442050;
+  height: 35%;
+  position: absolute;
+  left: 50%;
+  margin-top: 5vh;
+}
+.googleBtn {
+  display: flex;
+  width: 15vw;
+  height: 8vh;
+  margin: 10vh 0;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+  background-color: none;
+  border: 1.5px solid #06442017;
+  box-shadow: 1px 4px 8px 1px rgba(0,0,0,0.2);
+  font-weight: bold;
+  color: #064420;
+}
+.Button {
+  margin: 2vh 0;
+  font-weight: bold;
+  display: block;
+  background-color: #064420;
+  color: white;
+  border-radius: 5px;
+  border: 1.5px solid #06442017;
+  /* box-shadow: 2px 2px 5px #064420; */
+  font-size: 2.5vh;
+  padding: 1vh 4vw;
+}
+
+.Input {
+  border: none;
+  background-color:black;
+}
