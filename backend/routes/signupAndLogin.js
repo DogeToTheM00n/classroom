@@ -12,7 +12,7 @@ function CheckUsername(t1) {
         db.UserSchema.findOne({ username: t1 }, (err, results) => {
             if (err) throw err;
             if (results != null) {
-                console.log("Hello checkusername");
+                //console.log("Hello checkusername");
                 resolve(true);
 
             }
@@ -28,7 +28,7 @@ function CheckEmail(t2) {
     return new Promise(resolve => {
         db.UserSchema.findOne({ email: t2 }, (err, results) => {
             if (err) throw err;
-            console.log(results);
+            //console.log(results);
             if (results != null) {
                 resolve(true);
             }
@@ -49,15 +49,15 @@ async function Signup(req, res) {
     validation.username = await CheckUsername(req.body.username);
     validation.email = await CheckEmail(req.body.email);
 
-    console.log(validation);
-    console.log("to put details");
+   // console.log(validation);
+    //console.log("to put details");
     if (!validation.username && !validation.email) {
         bcrypt.genSalt(saltRounds, function (err, salt) {
             if (err) throw err;
             bcrypt.hash(req.body.password, salt, function (err, hash) {
                 // returns hash
                 if (err) throw err;
-                console.log(hash);
+                //console.log(hash);
                 const user = new db.UserSchema({
                     username: req.body.username,
                     password: hash,
@@ -99,7 +99,6 @@ function Login(req, res) {
             }
 
             else {
-                console.log(entry); 
                 bcrypt.compare(req.body.password, entry[0].password, (err, result) => {
                     if (err) throw err;
                     if (result) {
