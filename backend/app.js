@@ -25,7 +25,10 @@ app.post("/api/login",(req,res)=>{
     basicValidation.Login(req,res);
 });
 
-
+// Dashboard
+app.get("/api/dashboard",(req,res)=>{
+    basicValidation.Dashboard(req,res);
+})
 
 const port = 8080
 app.listen(port, () => {

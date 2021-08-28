@@ -94,21 +94,29 @@ function Login(req, res) {
             res.send(err);
         }
         else {
-            bcrypt.compare(req.body.password, entry[0].password, (err, result) => {
-                if (err) throw err;
-                if (result) {
-                    res.json({
-                        username: entry[0].username,
-                        email: entry[0].email,
-                        role: entry[0].role
-                    });
-                }
-                else {
-                    res.send(401);
-                }
-            });
+            if (entry.length == 0) {
+                res.send(400);
+            }
+
+            else {
+                console.log(entry); 
+                bcrypt.compare(req.body.password, entry[0].password, (err, result) => {
+                    if (err) throw err;
+                    if (result) {
+                        res.json({
+                            username: entry[0].username,
+                            email: entry[0].email,
+                            role: entry[0].role
+                        });
+                    }
+                    else {
+                        res.send(401);
+                    }
+                });
+            }
         }
     });
+
 
 
 }
