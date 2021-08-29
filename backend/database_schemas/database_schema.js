@@ -92,7 +92,7 @@ const SubjectSchema = new Schema({
     contentSchemaArray: [ContentSchema],
     videoLectureLink: String,
     lectureSchemaArray: [LectureSchema],
-    assignmentsSchemaArray: [{asg:AssignmentsSchema}],
+    assignmentsSchemaArray: [{asg:AssignmentsSchema,_id:String}],
     enrolledStudents:[{"username":String}]
 });
 
