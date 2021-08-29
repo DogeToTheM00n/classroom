@@ -40,11 +40,29 @@ function AddSubjectToTeacher(subj) {
     });
 }
 
-function AddStudentsToSubject(id,username) {
+function AddStudentsToSubject(id, username) {
     return new Promise(resolve => {
         db.SubjectSchema.findOneAndUpdate(
-            { _id: id},
-            { $push: { enrolledStudents: { "username": username} } },
+            { _id: id },
+            { $push: { enrolledStudents: { "username": username } } },
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                    resolve(error);
+                } else {
+                    console.log(success);
+                    resolve(success);
+                }
+            });
+
+    });
+}
+
+function AddStudentsToStudents(id, username) {
+    return new Promise(resolve => {
+        db.StudentSchema.findOneAndUpdate(
+            { username: username },
+            { $push: { subjectsIDArray: id } },
             function (error, success) {
                 if (error) {
                     console.log(error);
@@ -59,6 +77,7 @@ function AddStudentsToSubject(id,username) {
 }
 
 
+
 function GetInfo(id) {
     return new Promise(resolve => {
         db.SubjectSchema.findOne({ _id: id }, (err, result) => {
@@ -69,18 +88,33 @@ function GetInfo(id) {
 }
 
 function updateSchema(id, mutableObject) {
-    console.log(id,mutableObject);
+    console.log(id, mutableObject);
     return new Promise(resolve => {
-        db.SubjectSchema.updateOne({ _id: id}, {
-            $set :{name: mutalbleObject.name, teachersName: mutableObject.teachersName, description: mutalbleObject.description}
-         }, (err, result) => {
+        db.SubjectSchema.updateOne({ _id: id }, {
+            $set: { name: mutalbleObject.name, teachersName: mutableObject.teachersName, description: mutalbleObject.description }
+        }, (err, result) => {
             if (err) throw err;
             console.log(result);
             resolve(result);
         });
     });
 }
+//{ "$in" : ["sushi"]}
 
+function CheckUserExistance(username, id) {
+    console.log(username, id);
+    return new Promise(resolve => {
+        db.StudentSchema.find({ username: username, subjectsIDArray: { "$in": [id] } }, (err, result) => {
+            if (err) throw err;
+            console.log(result);
+            console.log(result.length);
+            if (result.length === 0) {
+                resolve(true);
+            }
+            resolve(false);
+        })
+    });
+}
 
 async function CreateSubject(req, res) {
     console.log("Hello");
@@ -101,7 +135,7 @@ async function CreateSubject(req, res) {
         contentSchemaArray: [],
         lectureSchemaArray: [],
         assignmentsSchemaArray: [],
-        enrolledStudents:[],
+        enrolledStudents: [],
         videoLectureLink: ""
     });
 
@@ -167,16 +201,24 @@ async function UpdateSubject(req, res) {
 
 }
 
-async function JoinClass(req,res){
-    const id=req.body._id;
-    const username=req.body.username;
+async function JoinClass(req, res) {
+    const id = req.body._id;
+    const username = req.body.username;
 
     // First check if a student is enrolled or not
-    
-
-    await AddStudentsToSubject(id,username);
+    const a = await CheckUserExistance(username, id);
+    if (a) {
+        await AddStudentsToStudents(id, username);
+        await AddStudentsToSubject(id,username);
+        res.json({
+            "_id":id
+        });
+    }
+    else {
+        res.json("-1");
+    }
 
 
 }
 
-module.exports = { CreateSubject, GetSubjectInfo, UpdateSubject,JoinClass };
+module.exports = { CreateSubject, GetSubjectInfo, UpdateSubject, JoinClass };
