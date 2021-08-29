@@ -63,6 +63,12 @@ app.post("/api/assignments", (req, res) => {
     assignment.CreateAssignments(req,res);
 });
 
+//Get Assignment Details
+
+app.get("/api/assignments",(req, res)=>{
+    assignment.ViewAssignmentDetails(req,res);
+})
+
 
 
 const port = 8080

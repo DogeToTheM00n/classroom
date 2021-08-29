@@ -93,12 +93,84 @@ async function CreateAssignments(req, res) {
     // Adding Assignments to StudentsSchema
     await CreateMarkAssignmentsSchema(obj.new_id, obj.id);
 
-    res.json({"_id": new_id});
+    res.json({ "_id": new_id });
 
+}
+
+function GetAsgDetailsArray(sub_id, asg_id) {
+    return new Promise(resolve => {
+        db.SubjectSchema.findOne({ _id: sub_id }, (err, res) => {
+            if (err) throw err;
+            if (res != null) {
+                //console.log(res);
+                resolve({ "asg_array": res.assignmentsSchemaArray, "enrolled": res.enrolledStudents });
+            }
+        });
+    });
+}
+
+function GetAsgOnly(quant, asg_id) {
+    return new Promise(resolve => {
+        for (var i = 0; i < quant.length; i++) {
+            if (quant[i]._id == asg_id) {
+                resolve(quant[i]);
+            }
+        }
+    });
+
+}
+
+function GetUsersMarksArray(username) {
+    return new Promise(resolve => {
+        db.StudentSchema.findOne({ username: username }, (err, res) => {
+            if (err) throw err;
+            if (res != null) {
+                resolve(res.marksAssignmentSchemaArray);
+            }
+        })
+    });
+
+}
+
+function GetAsgWithStudent(quant, asg_id, username) {
+    return new Promise(resolve => {
+        for (var i = 0; i < quant.length; i++) {
+            if (quant[i].assignmentId == asg_id) {
+                resolve(quant[i]);
+            }
+        }
+    });
+
+}
+
+
+async function ViewAssignmentDetails(req, res) {
+    const reqObj = {
+        asg_id: req.query.asg_id,
+        sub_id: req.query.sub_id,
+        username: req.query.username,
+        role: req.query.role
+    }
+   // console.log(reqObj.role);
+    if (reqObj.role == 0) {
+        const quant = await GetAsgDetailsArray(reqObj.sub_id, reqObj.asg_id);
+        const final_asg_array = await GetAsgOnly(quant.asg_array, reqObj.asg_id)
+        res.json({ "Asg_array": final_asg_array });
+
+    }
+    else {
+        const quant = await GetAsgDetailsArray(reqObj.sub_id, reqObj.asg_id);
+        const final_asg_array = await GetAsgOnly(quant.asg_array, reqObj.asg_id)
+        const user_array = await GetUsersMarksArray(reqObj.username);
+        const final_resp = await GetAsgWithStudent(user_array, reqObj.asg_id);
+        res.json({"Asg_array":final_asg_array, "User_makrs":final_resp});
+
+    }
 
 
 
 }
 
 
-module.exports = { CreateAssignments }
+
+module.exports = { CreateAssignments, ViewAssignmentDetails }
