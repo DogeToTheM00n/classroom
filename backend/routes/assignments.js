@@ -93,7 +93,7 @@ async function CreateAssignments(req, res) {
     // Adding Assignments to StudentsSchema
     await CreateMarkAssignmentsSchema(obj.new_id, obj.id);
 
-    res.json({ "_id": new_id });
+    res.json({ "_id": obj.new_id });
 
 }
 
