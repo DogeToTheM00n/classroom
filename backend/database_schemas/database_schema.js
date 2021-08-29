@@ -72,7 +72,8 @@ const AssignmentsSchema = new Schema({
     flag: {
         type: Boolean,
         require: true
-    }
+    },
+    subjectId:String
     // True== Test, false== Assignment
 });
 
@@ -91,7 +92,8 @@ const SubjectSchema = new Schema({
     contentSchemaArray: [ContentSchema],
     videoLectureLink: String,
     lectureSchemaArray: [LectureSchema],
-    assignmentsSchemaArray: [AssignmentsSchema]
+    assignmentsSchemaArray: [{asg:AssignmentsSchema}],
+    enrolledStudents:[{"username":String}]
 });
 
 const MarkAssignmentsSchema = new Schema({
