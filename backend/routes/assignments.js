@@ -16,7 +16,7 @@ async function AddAssignmentToSubject(id, asg) {
                 } else {
                     //console.log("Before Success");
                     console.log(success);
-                    resolve({"new_id":new_id,"id":id});
+                    resolve({ "new_id": new_id, "id": id });
                 }
             });
 
@@ -24,7 +24,7 @@ async function AddAssignmentToSubject(id, asg) {
 }
 
 async function AddMarksSchemaToStudent(username, marks_obj) {
-    console.log(username,marks_obj);
+    console.log(username, marks_obj);
     return new Promise(resolve => {
         db.StudentSchema.findOneAndUpdate(
             { username: username },
@@ -63,7 +63,7 @@ async function CreateMarkAssignmentsSchema(new_id, subId) {
     });
     const sub = await GetInfo(subId);
     for (let i = 0; i < sub.enrolledStudents.length; i++) {
-        await AddMarksSchemaToStudent(sub.enrolledStudents[i].username,mk);
+        await AddMarksSchemaToStudent(sub.enrolledStudents[i].username, mk);
     }
 
 }
@@ -88,10 +88,13 @@ async function CreateAssignments(req, res) {
 
     // Adding Assignments to Subject Table
 
-   const obj= await AddAssignmentToSubject(req.body.subjectId, asg);
-    await CreateMarkAssignmentsSchema(obj.new_id, obj.id);
+    const obj = await AddAssignmentToSubject(req.body.subjectId, asg);
 
     // Adding Assignments to StudentsSchema
+    await CreateMarkAssignmentsSchema(obj.new_id, obj.id);
+
+    res.json({"_id": new_id});
+
 
 
 
