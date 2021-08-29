@@ -52,7 +52,7 @@ async function Dashboard(req, res) {
     }
     var subjectArray = []
     if (f === null) {
-        res.send(400);
+        res.sendStatus(400);
     }
     else {
         if (f.subjectsIDArray == null) {
