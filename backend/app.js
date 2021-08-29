@@ -6,6 +6,7 @@ const basicValidation = require("./routes/signupAndLogin");
 const dashboard = require("./routes/dashboard.js");
 const subject = require("./routes/subject.js");
 const assignment = require("./routes/assignments.js");
+const content = require("./routes/content.js");
 const cors = require("cors");
 
 
@@ -69,6 +70,10 @@ app.get("/api/assignments",(req, res)=>{
 })
 
 
+// Content Routes
+app.post("/api/content", (req, res) => {
+    content.SaveContent(req,res);
+})
 
 const port = 8080
 app.listen(port, () => {
