@@ -1,0 +1,61 @@
+.Parent {
+  margin-top: 7vh;
+  padding-bottom: 10vh;
+}
+.Main {
+  background-color: white;
+  width: 45vw;
+  padding: 4vh 2vw;
+  border: 1px solid #06442027;
+  box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.2);
+  margin: auto;
+  border-radius: 1%;
+  background-color: white;
+}
+.Header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  text-align: left;
+}
+.Header .Icons {
+  display: flex;
+  justify-content: space-around;
+  width: 20%;
+}
+.Header .Icons i {
+  font-size: 2vw;
+  color: #064420;
+}
+.Code {
+  border-bottom: 5px solid #064420;
+  font-weight: bold;
+  display: inline-block;
+}
+.Right {
+  float: right;
+  position: fixed;
+  display: flex;
+  top: 25vh;
+  right: 8vw;
+  flex-direction: column;
+  padding: 2vh 2vw;
+}
+.ButtonsGroup {
+  display: flex;
+  flex-direction: column;
+}
+.Right button{
+    margin: 1vh auto;
+    font-size: 1.2vw;
+    border: none;
+}
+.PostButton, .ButtonsGroup button{
+    box-sizing: border-box;
+    color: #064420;
+    background-color: white;
+    padding: 1vh 2vw;
+    border: 1px solid #06442027;
+    box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 5%;
+}

@@ -1,1 +1,174 @@
-.App{}
+.cardImage {
+  height: 7vw;
+  object-fit: cover;
+}
+
+.threeDot {
+  position: absolute !important;
+  top: 7px;
+  right: 1px;
+}
+
+body {
+  background-color: #ededed;
+}
+.circular-menu {
+  position: fixed;
+  left: 0;
+}
+
+.circular-menu .floating-btn {
+  display: block;
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  background-color: hsl(4, 98%, 60%);
+  color: hsl(0, 0%, 100%);
+  text-align: center;
+  cursor: pointer;
+  outline: 0;
+}
+
+.circular-menu .floating-btn i {
+  font-size: 1.3em;
+  transition: transform 0.2s;
+}
+
+.circular-menu:after {
+  display: block;
+  content: " ";
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -2;
+  background-color: hsl(4, 98%, 60%);
+  transition: all 0.3s ease;
+}
+
+.circular-menu.active:after {
+  transform: scale3d(4, 4, 1);
+  transition-timing-function: cubic-bezier(0.68, 1.55, 0.265, 1);
+}
+
+.circular-menu .items-wrapper {
+  padding: 0;
+  margin: 0;
+}
+
+.circular-menu .menu-item {
+  position: absolute;
+  top: 0em;
+  right: 0em;
+  z-index: -1;
+  display: block;
+  text-decoration: none;
+  color: hsl(0, 0%, 100%);
+  font-size: 1em;
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 3;
+  transition: transform 0.3s ease, background 0.2s ease;
+}
+
+.circular-menu .menu-item:hover {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.circular-menu.active .menu-item {
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.circular-menu.active .menu-item:nth-child(1) {
+  transform: translate3d(3em, -7em, 0);
+}
+
+.circular-menu.active .menu-item:nth-child(2) {
+  transform: translate3d(6.5em, -1em, 0);
+}
+
+.circular-menu.active .menu-item:nth-child(3) {
+  transform: translate3d(3em, 5em, 0);
+}
+
+/**
+ * The other theme for this menu
+ */
+
+.circular-menu.circular-menu-left {
+  right: auto;
+  left: -2em;
+  bottom: 50%;
+}
+
+.circular-menu.circular-menu-left .floating-btn {
+  background-color: #fdfaf6;
+}
+
+.circular-menu.circular-menu-left:after {
+  background-color: #fdfaf6;
+}
+
+.circular-menu.circular-menu-left.active .floating-btn i {
+  transform: rotate(180deg);
+}
+
+.circular-menu.circular-menu-left.active .menu-item:nth-child(1) {
+  transform: translate3d(2em, -6.5em, 0);
+}
+
+.circular-menu.circular-menu-left.active .menu-item:nth-child(2) {
+  transform: translate3d(6em, -0.4em, 0);
+}
+
+.circular-menu.circular-menu-left.active .menu-item:nth-child(3) {
+  transform: translate3d(2em, 6em, 0);
+}
+
+.side-chevron {
+  margin-top: 30px;
+  margin-left: 20px;
+  color: #064420;
+}
+
+.fa-calendar,
+.fa-clipboard-list,
+.fa-user {
+  margin-top: 25px;
+  font-size: 30px !important;
+  color: #064420;
+}
+
+.topContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#dropdown-basic {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: none;
+}
+
+a.dropdown-item:active {
+  background-color: rgba(0, 0, 0, 0);
+  color: black;
+}
+
+.form-actions {
+  margin: 0;
+  text-align: center;
+}
+
+.btn {
+  background-color: #064420 !important;
+}
+
+.fa-plus {
+  font-size: 1.5vw !important;
+  color: #064420;
+}
