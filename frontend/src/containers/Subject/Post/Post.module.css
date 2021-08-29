@@ -1,0 +1,32 @@
+.Post {
+  background-color: white;
+  width: 40vw;
+  padding: 2vh 2vw;
+  border: 1px solid #06442027;
+  box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 1%;
+  margin-top: 10vh;
+  margin-left: 30%;
+}
+.Flex {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+  text-align: left;
+  border-bottom: 5px solid #e4efe7;
+}
+.Post p {
+  margin: 1vh 0;
+}
+.Icon {
+  display: inline-block;
+  color: white;
+  background-color: #064420;
+  padding: 1vh 0.9vw;
+  font-size: 1.7vw;
+  margin-top: 2vh;
+  margin-right: 2vh;
+}
+:global .fa-file-pdf {
+  font-size: 1.9vw;
+}

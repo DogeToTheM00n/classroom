@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import axios from "../../axiosClass.js";
 import classes from "./Auth.module.css";
 
 class Signup extends Component {
@@ -12,6 +13,8 @@ class Signup extends Component {
     password: "",
     role: 0, // 0 - teacher, 1 - student
     authFlag: 0, // 0 - SignIn, 1 - SignUp
+    req: true,
+    emailVal: false,
   };
   changeAuthFlag = () => {
     this.setState((prevState) => {
@@ -19,13 +22,57 @@ class Signup extends Component {
     });
   };
   change = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value }, () => {
+      if (event.target.name === "email") {
+        const pattern =
+          /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+        const checkPattern = pattern.test(event.target.value);
+        this.setState({
+          emailVal: checkPattern,
+        });
+      }
+      if (this.state.authFlag === 0) {
+        if (
+          this.state.username.length === 0 ||
+          this.state.password.length === 0
+        ) {
+          this.setState({ req: true });
+        } else {
+          this.setState({ req: false });
+        }
+      } else {
+        if (
+          this.state.username.length === 0 ||
+          this.state.password.length === 0 ||
+          this.state.email.length === 0
+        ) {
+          this.setState({ req: true });
+        } else {
+          this.setState({ req: false });
+        }
+      }
+    });
   };
-  submit = () => {
+  submit = (event) => {
+    event.preventDefault();
     if (this.state.authFlag === 0) {
-      // Call for signin
+      if (!this.state.req) {
+        console.log("Call SignIn");
+      }
     } else {
-      // Call for signup
+      if (!this.state.req && this.state.emailVal) {
+        const userData = {
+          username: this.state.username,
+          email: this.state.email,
+          password: this.state.password,
+          role: this.state.role,
+        };
+        axios
+          .post("/api/signup", userData)
+          .then((res) => {
+            console.log(res);
+          })
+      }
     }
   };
   render() {
@@ -34,6 +81,9 @@ class Signup extends Component {
         <h1 className={classes.H1}>CLASSROOM</h1>
         <Row className="mt-3">
           <Col className="col-5">
+            {this.state.req && (
+              <p className={classes.Error}>*All fields are required.</p>
+            )}
             {this.state.authFlag === 1 ? (
               <Form className={classes.Font}>
                 <Form.Group className="mb-3" controlId="Username">
@@ -58,6 +108,9 @@ class Signup extends Component {
                     value={this.state.email}
                   />
                 </Form.Group>
+                {!this.state.emailVal && (
+                  <p className={classes.Error}>*Please enter a valid email</p>
+                )}
                 <Form.Group className="mb-3" controlId="Password">
                   <Form.Label className={classes.Label}>Password</Form.Label>
                   <Form.Control
