@@ -209,10 +209,16 @@ async function JoinClass(req, res) {
     const a = await CheckUserExistance(username, id);
     if (a) {
         await AddStudentsToStudents(id, username);
-        await AddStudentsToSubject(id,username);
-        res.json({
-            "_id":id
-        });
+        const k = await AddStudentsToSubject(id, username);
+        console.log("k is ", k);
+        if (k == null) {
+            res.send("-2");
+        }
+        else {
+            res.json({
+                "_id": id
+            });
+        }
     }
     else {
         res.json("-1");
