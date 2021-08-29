@@ -1,6 +1,7 @@
 const initialState = {
   auth: false,
   user: null,
+  showCreateClassModal: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,6 +17,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         auth: true,
         user: action.user,
+      };
+    case "Toggle_CreateModal":
+      return {
+        ...state,
+        showCreateClassModal: !state.showCreateClassModal,
       };
     default:
       return state;

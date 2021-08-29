@@ -1,44 +1,54 @@
 import React, { Component } from "react";
 import classes from "./Subject.module.css";
 import Post from "./Post/Post.js";
+import {Link} from "react-router-dom";
+import axios from "../../axiosClass.js";
 
 class Subject extends Component {
   state = {
-    id: "axbyz", //""
-    name: "Computer Networks", //""
-    teacher: "Ravi Chopra", //""
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and types unc", //""
-    content: [
-      {
-        username: "Ravi Chopra",
-        date: "12/21/2021",
-        body: "Lorem Ipsum is simply dummy text of the printing",
-        urls: ["nbjss.pdf", "bjsb.jpg"],
-        type: "assignment",
-      },
-      {
-        username: "Ravi Chopra",
-        date: "12/21/2021",
-        body: "Lorem Ipsum is simply dummy text of the printing",
-        urls: ["nbjss.pdf", "bjsb.jpg"],
-        type: "assignment",
-      },
-      {
-        username: "Ravi Chopra",
-        date: "12/21/2021",
-        body: "Lorem Ipsum is simply dummy text of the printing",
-        urls: ["nbjss.pdf", "bjsb.jpg"],
-        type: "assignment",
-      }, // []
-    ],
-    link: "link", //""
+    id: "",
+    name: "",
+    teacher: "",
+    description: "",
+    content: [],
+    link: "",
     assignments: [],
     tests: [],
     filter: 1,
   };
   componentDidMount() {
     // API call to /subject GET
+    const searchParams = new URLSearchParams(this.props.location.search);
+    let id;
+    for (const [, value] of searchParams) {
+      console.log(value);
+      id = value;
+      this.setState({ id: value });
+    }
+    axios
+      .get("/api/subject", {
+        params: { _id: id },
+      })
+      .then((res) => {
+        this.setState({
+          id: res.data._id,
+          name: res.data.name,
+          teacher: res.data.teachersName,
+          description: res.data.description,
+          content: res.data.contentSchemaArray,
+          link: res.data.videoLectureLink,
+        });
+        let assignments = [];
+        let tests = [];
+        for (let item of res.data.assignmentsSchemaArray) {
+          if (item.type) {
+            tests.push(item);
+          } else {
+            assignments.push(item);
+          }
+        }
+        this.setState({ tests: tests, assignments: assignments });
+      });
   }
   render() {
     console.log(this.state.filter === 0);
@@ -50,7 +60,9 @@ class Subject extends Component {
               <h2>{this.state.name}</h2>
               <div className={classes.Icons}>
                 <i class="far fa-calendar-plus"></i>
-                <i class="fas fa-video"></i>
+                <Link to={this.state.link}>
+                  <i class="fas fa-video"></i>
+                </Link>
               </div>
             </div>
             <p className={classes.Code}>Code: {this.state.id}</p>

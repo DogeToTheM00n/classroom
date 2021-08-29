@@ -145,8 +145,8 @@ body {
 
 .topContainer {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: end;
 }
 
 #dropdown-basic {
@@ -168,7 +168,9 @@ a.dropdown-item:active {
   background-color: #064420 !important;
 }
 
-.fa-plus {
-  font-size: 1.5vw !important;
+.fa-plus,
+.fa-sign-out-alt {
+  margin-right: 1.2vw;
+  font-size: 1.7vw !important;
   color: #064420;
 }

@@ -77,6 +77,7 @@ class Signup extends Component {
               };
               this.props.setAuthTrue(user);
               localStorage.setItem("user", JSON.stringify(user));
+              this.props.history.push("/");
             } else {
               this.setState({ loginErr: true });
             }
@@ -105,6 +106,7 @@ class Signup extends Component {
               };
               this.props.setAuthTrue(user);
               localStorage.setItem("user", JSON.stringify(user));
+              this.props.history.push("/");
             } else {
               if (res.data.username === true) {
                 this.setState({ userErr: true });
