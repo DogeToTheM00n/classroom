@@ -109,15 +109,15 @@ const StudentSchema = new Schema({
     }
         ,  // Username from UserSchema
     marksAssignmentSchemaArray: [MarkAssignmentsSchema],
-    subjectsEnrolled: [String]  // Array that will be array of subject id's(_id)
+    subjectsIDArray: [String]  // Array that will be array of subject id's(_id)
 });
 
-const TeacherSchema = new Schema({
+const TeacherSchema = new Schema({  
     username: {
         type:String,
         required:true
     },   // Username from UserSchema
-    subjectsTeacher: [String]    // Array that will be array of subject id's(_id)
+    subjectsIDArray: [{subjectId:String}]    // Array that will be array of subject id's(_id)
 });
 
 module.exports = {

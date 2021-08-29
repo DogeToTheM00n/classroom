@@ -49,7 +49,7 @@ async function Signup(req, res) {
     validation.username = await CheckUsername(req.body.username);
     validation.email = await CheckEmail(req.body.email);
 
-   // console.log(validation);
+    // console.log(validation);
     //console.log("to put details");
     if (!validation.username && !validation.email) {
         bcrypt.genSalt(saltRounds, function (err, salt) {
@@ -71,6 +71,29 @@ async function Signup(req, res) {
                         console.log("Information saved to database, successfully");
                     }
                 })
+                if (!user.role) {
+                    const teacher = new db.TeacherSchema({
+                        username: user.username,
+                        subjectsIdArray:[]
+                    });
+                    teacher.save((err) => {
+                        if (err) throw err;
+                        console.log("Teacher created ");
+                    })
+
+                }
+                else {
+                    const student = new db.StudentSchema({
+                        username: user.username,
+                        subjectsIDArray:[]
+                    });
+                    student.save((err) => {
+                        {
+                            if (err) throw err;
+                            console.log("Student created ");
+                        }
+                    })
+                }
                 res.json({
                     username: user.username,
                     email: user.email,
