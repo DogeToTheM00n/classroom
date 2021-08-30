@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import classes from "./Subject.module.css";
 import Post from "./Post/Post.js";
-import {Link} from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import axios from "../../axiosClass.js";
 
 class Subject extends Component {
@@ -51,75 +52,83 @@ class Subject extends Component {
       });
   }
   render() {
-    console.log(this.state.filter === 0);
     return (
-      <div>
-        <div className={classes.Parent}>
-          <div className={classes.Main}>
-            <div className={classes.Header}>
-              <h2>{this.state.name}</h2>
-              <div className={classes.Icons}>
-                <i class="far fa-calendar-plus"></i>
-                <Link to={this.state.link}>
-                  <i class="fas fa-video"></i>
-                </Link>
+      <>
+        {!this.props.auth && <Redirect to="/" />}
+        <div>
+          <div className={classes.Parent}>
+            <div className={classes.Main}>
+              <div className={classes.Header}>
+                <h2>{this.state.name}</h2>
+                <div className={classes.Icons}>
+                  <i class="far fa-calendar-plus"></i>
+                  <Link to={this.state.link}>
+                    <i class="fas fa-video"></i>
+                  </Link>
+                </div>
               </div>
+              <p className={classes.Code}>Code: {this.state.id}</p>
+              <p className={classes.Description}>{this.state.description}</p>
             </div>
-            <p className={classes.Code}>Code: {this.state.id}</p>
-            <p className={classes.Description}>{this.state.description}</p>
+            <div className={classes.Posts}>
+              {this.state.content.map((post) => {
+                return (
+                  <Post
+                    username={post.username}
+                    date={post.date}
+                    body={post.body}
+                    urls={post.urls}
+                    type={post.type}
+                    key={post.body}
+                  />
+                );
+              })}
+            </div>
           </div>
-          <div className={classes.Posts}>
-            {this.state.content.map((post) => {
-              return (
-                <Post
-                  username={post.username}
-                  date={post.date}
-                  body={post.body}
-                  urls={post.urls}
-                  type={post.type}
-                  key={post.body}
-                />
-              );
-            })}
-          </div>
-        </div>
-        <div className={classes.Right}>
-          <button className={classes.PostButton}>
-            <i class="fas fa-upload"></i> Post
-          </button>
-          <div className={classes.ButtonsGroup}>
-            <button
-              style={
-                this.state.filter === 0
-                  ? { backgroundColor: "#064420", color: "white" }
-                  : null
-              }
-            >
-              Content
+          <div className={classes.Right}>
+            <button className={classes.PostButton}>
+              <i class="fas fa-upload"></i> Post
             </button>
-            <button
-              style={
-                this.state.filter === 1
-                  ? { backgroundColor: "#064420", color: "white" }
-                  : null
-              }
-            >
-              Assignments
-            </button>
-            <button
-              style={
-                this.state.filter === 2
-                  ? { backgroundColor: "#064420", color: "white" }
-                  : null
-              }
-            >
-              Tests
-            </button>
+            <div className={classes.ButtonsGroup}>
+              <button
+                style={
+                  this.state.filter === 0
+                    ? { backgroundColor: "#064420", color: "white" }
+                    : null
+                }
+              >
+                Content
+              </button>
+              <button
+                style={
+                  this.state.filter === 1
+                    ? { backgroundColor: "#064420", color: "white" }
+                    : null
+                }
+              >
+                Assignments
+              </button>
+              <button
+                style={
+                  this.state.filter === 2
+                    ? { backgroundColor: "#064420", color: "white" }
+                    : null
+                }
+              >
+                Tests
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
 
-export default Subject;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps)(Subject);

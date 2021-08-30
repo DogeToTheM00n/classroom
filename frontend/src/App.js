@@ -8,13 +8,14 @@ import { connect } from "react-redux";
 import Sidebar from "./components/Sidebar.js";
 import Subject from "./containers/Subject/Subject.js";
 import Dashboard from "./containers/Dashboard.js";
+import Marks from "./containers/Marks/Marks.js";
 
 class App extends Component {
   state = {
     auth: false,
   };
   UNSAFE_componentWillMount() {
-    const user = localStorage.getItem("user");
+    const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       this.setState({ auth: true });
       this.props.setAuthTrue(user);
@@ -24,10 +25,11 @@ class App extends Component {
     return (
       <div>
         <Menu />
-        {!this.props.auth && <Redirect to="/" />}
         <Switch>
+          <Route path="/score" component={Marks} />
           <Route path="/subject" component={Subject} />
-          <Route path="/" component={this.props.auth ? Dashboard : Auth} />
+          <Route path="/home" component={Dashboard} />
+          <Route path="*" component={Auth} />
         </Switch>
         {this.props.auth && <Sidebar />}
         <Footer />
