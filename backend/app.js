@@ -7,12 +7,15 @@ const dashboard = require("./routes/dashboard.js");
 const subject = require("./routes/subject.js");
 const assignment = require("./routes/assignments.js");
 const content = require("./routes/content.js");
-const multer  = require('multer')
+const lectures = require("./routes/lectures.js");
+const calender = require("./routes/calender.js");
+const multer = require('multer')
 const cors = require("cors");
 
 
+
 //  Preprocessing 
-const upload=multer();
+const upload = multer();
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -53,7 +56,7 @@ app.put("/api/subject", (req, res) => {
 });
 
 // Join Class
-app.post("/api/joinClass",(req,res)=>{
+app.post("/api/joinClass", (req, res) => {
     subject.JoinClass(req, res);
 })
 
@@ -61,21 +64,35 @@ app.post("/api/joinClass",(req,res)=>{
 
 // Assignments Routes
 
-app.post("/api/assignments", upload.any(),(req, res) => {
-    assignment.CreateAssignments(req,res);
+app.post("/api/assignments", upload.any(), (req, res) => {
+    assignment.CreateAssignments(req, res);
 });
 
 //Get Assignment Details
 
-app.get("/api/assignments",(req, res)=>{
-    assignment.ViewAssignmentDetails(req,res);
+app.get("/api/assignments", (req, res) => {
+    assignment.ViewAssignmentDetails(req, res);
 })
 
 
 // Content Routes
-app.post("/api/content", upload.any(),(req, res) => {
-    content.SaveContent(req,res);
+app.post("/api/content", upload.any(), (req, res) => {
+    content.SaveContent(req, res);
 })
+
+
+// Lecture routes
+app.post("/api/lecture", (req, res) => {
+    lectures.CreateLecture(req, res);
+});
+
+//Get Calender
+
+app.get("/api/calender", (req, res) => {
+    calender.GetSchedule(req, res);
+});
+
+
 
 const port = 8080
 app.listen(port, () => {

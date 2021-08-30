@@ -100,7 +100,7 @@ const SubjectSchema = new Schema({
     description: String,
     contentSchemaArray: [ContentSchema],
     videoLectureLink: String,
-    lectureSchemaArray: [LectureSchema],
+    lectureSchemaArray: [{"lecture":LectureSchema}],
     assignmentsSchemaArray: [{asg:AssignmentsSchema,_id:String}],
     enrolledStudents:[{"username":String}]
 });

@@ -32,7 +32,7 @@ function AddSubjectToTeacher(subj) {
                     console.log(error);
                     resolve(error);
                 } else {
-                    console.log(success);
+                    //console.log(success);
                     resolve(success);
                 }
             });
@@ -50,7 +50,7 @@ function AddStudentsToSubject(id, username) {
                     console.log(error);
                     resolve(error);
                 } else {
-                    console.log(success);
+                    //console.log(success);
                     resolve(success);
                 }
             });
@@ -68,7 +68,7 @@ function AddStudentsToStudents(id, username) {
                     console.log(error);
                     resolve(error);
                 } else {
-                    console.log(success);
+                    //console.log(success);
                     resolve(success);
                 }
             });
