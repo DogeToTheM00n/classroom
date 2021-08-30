@@ -1,5 +1,5 @@
 const db = require('../db/db.js');
-const driveApi = require("../externam_api/external_api.js");
+const driveApi = require("../external_api/external_api.js");
 
 function AddContentToSubject(id, content) {
     return new Promise(resolve => {

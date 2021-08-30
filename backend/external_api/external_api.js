@@ -5,17 +5,18 @@ const { google } = require('googleapis');
 const path = require('path');
 const fs = require('fs');
 const { Readable } = require('stream');
+const dotenv=require("dotenv")
+dotenv.config();
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-const CLIENT_ID = '1022264532942-ck3t1ba66qph4vlc2tv8j5njtb12fp41.apps.googleusercontent.com';
-const CLIENT_SECRET = 'rc-GrMQmCexQd3hJSEIp9SAT';
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-
-const REFRESH_TOKEN = '1//04DiaCUiICxIUCgYIARAAGAQSNwF-L9IrqD__qokKR_U3rhgpjImcubglli1EiIAQzQKY36uQwlz9sYTyFItVQPoq_QWvO30N2sk';
+const CLIENT_ID="1022264532942-ck3t1ba66qph4vlc2tv8j5njtb12fp41.apps.googleusercontent.com"
+const CLIENT_SECRET="rc-GrMQmCexQd3hJSEIp9SAT"
+const REDIRECT_URI="https://developers.google.com/oauthplayground"
+const REFRESH_TOKEN="1//04DiaCUiICxIUCgYIARAAGAQSNwF-L9IrqD__qokKR_U3rhgpjImcubglli1EiIAQzQKY36uQwlz9sYTyFItVQPoq_QWvO30N2sk"
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,
@@ -68,6 +69,7 @@ async function uploadFile(fileInfo) {
 
 
 async function uploadFile2(fileInfo) {
+    //console.log("client id is ", CLIENT_ID);
     var info_array=[]
     if(fileInfo != undefined) {
     for(var i=0;i<fileInfo.length;i++){
