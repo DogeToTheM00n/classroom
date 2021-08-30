@@ -1,0 +1,28 @@
+.Header {
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  width: 35vw;
+}
+.Header p{
+    display: inline-block;
+    margin: 0;
+}
+.Red{
+    color: #C64756;
+}
+.Green{
+    color: #064420;
+}
+.Input{
+    width: 3vw;
+    border: none;
+    border-bottom: 1px solid #064420;
+}
+.Input:focus{
+    background-color: inherit;
+    outline: none;
+}
+.Grey{
+    color: #424242;
+}

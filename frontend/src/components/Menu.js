@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 const Menu = () => {
   const [show, setShow] = useState(false);
   const auth = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const onClickHandler = () => {
     setShow(!show);
@@ -50,8 +51,11 @@ const Menu = () => {
           )}
         </Navbar.Collapse>
       </Navbar>
-      {/* <JoinModalForm show={show} callback = {callback}/> */}
-      <CreateClassModal show={show} callback={callback} />
+      {auth&&user.role ? (
+        <JoinModalForm show={show} callback={callback} />
+      ) : (
+        <CreateClassModal show={show} callback={callback} />
+      )}
     </>
   );
 };
