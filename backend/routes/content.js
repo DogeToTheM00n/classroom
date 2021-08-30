@@ -1,4 +1,5 @@
 const db = require('../db/db.js');
+const driveApi = require("../externam_api/external_api.js");
 
 function AddContentToSubject(id, content) {
     return new Promise(resolve => {
@@ -18,26 +19,45 @@ function AddContentToSubject(id, content) {
     });
 }
 
+function SaveFilesToDrive(content) {
+    return new Promise(resolve => {
+        resolve(driveApi.uploadFile2(content));
+    });
+
+
+}
 
 async function SaveContent(req, res) {
+    console.log(req.files);
     const sub_id = req.body.sub_id;
-    const content = new db.ContentSchema({
+    var content = new db.ContentSchema({
         body: req.body.body,
         date: new Date(),
-        files: req.body.file,
+        files:[],
         username: req.body.username
     });
     if (req.body.body === undefined) {
         content.body = "";
     }
-    if (req.body.files === undefined) {
-        content.file = "";
-    }
+
+    // console.log(content.files);
+    //content.files = await SaveFilesToDrive(req.files);
+    const a = await SaveFilesToDrive(req.files);
+    // for(var i=0;i<a.length;i++){
+    //     content[i].files.id=a[i].id;
+    //     content[i].files.kind=a[i].kind;
+    //     content[i].files.name=a[i].name;
+    //     content[i].files.mimeType=a[i].mimeType;
+    // }
+
+    content.files=a;
+    
+    console.log("value of files is ", content.files);
     await AddContentToSubject(sub_id, content);
-    res.send(true);
+    res.json({ "Bool": true, "driveFiles": content.files });
 
 }
 
 
 
-module.exports = { SaveContent };
+module.exports = { SaveContent,SaveFilesToDrive };

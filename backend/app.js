@@ -7,10 +7,12 @@ const dashboard = require("./routes/dashboard.js");
 const subject = require("./routes/subject.js");
 const assignment = require("./routes/assignments.js");
 const content = require("./routes/content.js");
+const multer  = require('multer')
 const cors = require("cors");
 
 
 //  Preprocessing 
+const upload=multer();
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -59,7 +61,7 @@ app.post("/api/joinClass",(req,res)=>{
 
 // Assignments Routes
 
-app.post("/api/assignments", (req, res) => {
+app.post("/api/assignments", upload.any(),(req, res) => {
     assignment.CreateAssignments(req,res);
 });
 
@@ -71,7 +73,7 @@ app.get("/api/assignments",(req, res)=>{
 
 
 // Content Routes
-app.post("/api/content", (req, res) => {
+app.post("/api/content", upload.any(),(req, res) => {
     content.SaveContent(req,res);
 })
 

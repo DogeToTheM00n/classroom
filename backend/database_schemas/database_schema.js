@@ -42,13 +42,20 @@ const LectureSchema = new Schema({
     }
 });
 
+const driveApi=new Schema({
+    kind: String,
+    id: String,
+    name: String,
+    mimeType: String
+});
+
 const ContentSchema = new Schema({
     body: String,
     date: {
         type: Date,
         required: true
     },
-    files: [String],   // Url of the file
+    files: [driveApi],   // Url of the file
     username: {   //either student or teacher
         type: String,
         required: true
@@ -67,7 +74,7 @@ const AssignmentsSchema = new Schema({
         type: Date,
         required: true
     },
-    files: [String], // Url of the file
+    files: [driveApi], // Url of the file
     deadline: Date,
     flag: {
         type: Boolean,
@@ -99,7 +106,7 @@ const SubjectSchema = new Schema({
 const MarkAssignmentsSchema = new Schema({
     marks: Number,
     assignmentId: String,  // _id of Assignments Schema
-    files: [String],
+    files: [driveApi],
     subjectId: String,   // _id from SubjectSchema
     flag: Number   //1== Not submitted, 2== Done late, 3==Submitted on/before time
 });
@@ -121,6 +128,7 @@ const TeacherSchema = new Schema({
     },   // Username from UserSchema
     subjectsIDArray: [{subjectId:String}]    // Array that will be array of subject id's(_id)
 });
+
 
 module.exports = {
     UserSchema,

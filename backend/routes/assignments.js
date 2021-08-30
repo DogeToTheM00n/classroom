@@ -1,9 +1,6 @@
 const db = require('../db/db.js');
 const subject = require("./subject.js");
-var fileupload = require("express-fileupload");
-const express=require("express");
-const app = express();
-app.use(fileupload());
+const content = require("./content.js");
 
 
 async function AddAssignmentToSubject(id, asg) {
@@ -75,32 +72,29 @@ async function CreateMarkAssignmentsSchema(new_id, subId) {
 
 
 async function CreateAssignments(req, res) {
-   console.log(req.files.file);
     const asg = new db.AssignmentsSchema({
         title: req.body.title,
         points: req.body.point,
         body: req.body.body, // Url of the file  [You have to fetch all these details to your drive]
         deadline: req.body.deadline,
         flag: req.body.flag,
-        file:[]
+        files:[]
     });
-    if (req.body.files!=undefined) {
-        asg.files = req.files.file;
-    }
-    else {
-        asg.files = req.body.files;
-    }
+
     const current_datetime = new Date();
     asg.date = current_datetime;
 
     // Adding Assignments to Subject Table
-
+    //console.log("asg is ",asg);
+    const a=await content.SaveFilesToDrive(req.files)
+    asg.files=a;
+    //console.log("subject id is ", req.body.subjectId);
     const obj = await AddAssignmentToSubject(req.body.subjectId, asg);
 
     // Adding Assignments to StudentsSchema
     await CreateMarkAssignmentsSchema(obj.new_id, obj.id);
 
-    res.json({ "_id": obj.new_id });
+    res.json({ "_id": obj.new_id ,"driveFiles":asg.files});
 
 }
 
