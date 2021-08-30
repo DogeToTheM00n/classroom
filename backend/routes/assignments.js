@@ -1,8 +1,13 @@
 const db = require('../db/db.js');
 const subject = require("./subject.js");
+var fileupload = require("express-fileupload");
+const express=require("express");
+const app = express();
+app.use(fileupload());
 
 
 async function AddAssignmentToSubject(id, asg) {
+
     const new_id = (new Date()).getTime().toString(36)
     console.log(new_id);
     return new Promise(resolve => {
@@ -57,7 +62,7 @@ async function CreateMarkAssignmentsSchema(new_id, subId) {
     const mk = new db.MarkAssignmentsSchema({
         marks: -1,
         assignmentId: new_id,
-        files: "",
+        files:[],
         subjectId: subId,
         flag: 1
     });
@@ -70,15 +75,17 @@ async function CreateMarkAssignmentsSchema(new_id, subId) {
 
 
 async function CreateAssignments(req, res) {
+   console.log(req.files.file);
     const asg = new db.AssignmentsSchema({
         title: req.body.title,
         points: req.body.point,
         body: req.body.body, // Url of the file  [You have to fetch all these details to your drive]
         deadline: req.body.deadline,
-        flag: req.body.flag
+        flag: req.body.flag,
+        file:[]
     });
-    if (req.body.files === undefined) {
-        asg.files = "";
+    if (req.body.files!=undefined) {
+        asg.files = req.files.file;
     }
     else {
         asg.files = req.body.files;

@@ -48,7 +48,7 @@ const ContentSchema = new Schema({
         type: Date,
         required: true
     },
-    files: String,   // Url of the file
+    files: [String],   // Url of the file
     username: {   //either student or teacher
         type: String,
         required: true
@@ -67,7 +67,7 @@ const AssignmentsSchema = new Schema({
         type: Date,
         required: true
     },
-    files: String, // Url of the file
+    files: [String], // Url of the file
     deadline: Date,
     flag: {
         type: Boolean,
@@ -99,7 +99,7 @@ const SubjectSchema = new Schema({
 const MarkAssignmentsSchema = new Schema({
     marks: Number,
     assignmentId: String,  // _id of Assignments Schema
-    files: String,
+    files: [String],
     subjectId: String,   // _id from SubjectSchema
     flag: Number   //1== Not submitted, 2== Done late, 3==Submitted on/before time
 });
@@ -111,7 +111,7 @@ const StudentSchema = new Schema({
     }
         ,  // Username from UserSchema
     marksAssignmentSchemaArray: [MarkAssignmentsSchema],
-    subjectsIDArray: [String]  // Array that will be array of subject id's(_id)
+    subjectsIDArray: [{subjectId:String}]  // Array that will be array of subject id's(_id)
 });
 
 const TeacherSchema = new Schema({  

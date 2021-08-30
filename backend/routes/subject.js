@@ -62,7 +62,7 @@ function AddStudentsToStudents(id, username) {
     return new Promise(resolve => {
         db.StudentSchema.findOneAndUpdate(
             { username: username },
-            { $push: { subjectsIDArray: id } },
+            { $push: { subjectsIDArray:  { "subjectId": id } } },
             function (error, success) {
                 if (error) {
                     console.log(error);
@@ -102,9 +102,9 @@ function updateSchema(id, mutableObject) {
 //{ "$in" : ["sushi"]}
 
 function CheckUserExistance(username, id) {
-    console.log(username, id);
+    //console.log(username, id);
     return new Promise(resolve => {
-        db.StudentSchema.find({ username: username, subjectsIDArray: { "$in": [id] } }, (err, result) => {
+        db.StudentSchema.find({ username: username, subjectsIDArray: { "$in": [{"subjectId":id}] } }, (err, result) => {
             if (err) throw err;
             console.log(result);
             console.log(result.length);
@@ -115,6 +115,7 @@ function CheckUserExistance(username, id) {
         })
     });
 }
+                                                        
 
 async function CreateSubject(req, res) {
     console.log("Hello");
@@ -208,13 +209,14 @@ async function JoinClass(req, res) {
     // First check if a student is enrolled or not
     const a = await CheckUserExistance(username, id);
     if (a) {
-        await AddStudentsToStudents(id, username);
+        console.log("In if");
         const k = await AddStudentsToSubject(id, username);
         console.log("k is ", k);
         if (k == null) {
-            res.send("-2");
+            res.json("-2");
         }
         else {
+            await AddStudentsToStudents(id, username);
             res.json({
                 "_id": id
             });

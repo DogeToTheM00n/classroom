@@ -2,17 +2,19 @@ const db = require('../db/db.js');
 
 
 function getUsername(role, t1) {
-    console.log(t1);
+   // console.log(t1,role);
     return new Promise(resolve => {
-        if (!role) {
+        if (role==0) {
             db.TeacherSchema.findOne({ username: t1 }, (err, results) => {
                 if (err) throw err;
+                console.log(results)
                 resolve(results);
             });
         }
         else {
             db.StudentSchema.findOne({ username: t1 }, (err, results) => {
                 if (err) throw err;
+                console.log(results)
                 resolve(results);
             });
         }
@@ -21,12 +23,12 @@ function getUsername(role, t1) {
 }
 
 function GetSubject(id) {
-    console.log(id);
+    //console.log(id);
     return new Promise(resolve => {
         db.SubjectSchema.findOne({ _id: id }, (err, result) => {
             if (err) throw err;
             if(result==null){
-                resolve(results);
+                resolve(result);
             }
             resolve({
                 "name": result.name,
@@ -40,7 +42,7 @@ function GetSubject(id) {
 
 async function Dashboard(req, res) {
     const username = req.query.username;
-    const role = req.body.role;
+    const role = req.query.role;
 
     //Will receive teacher's or studen's schema
     const f = await getUsername(role, username);
