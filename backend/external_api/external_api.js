@@ -13,6 +13,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
+
+
+
 const CLIENT_ID="1022264532942-ck3t1ba66qph4vlc2tv8j5njtb12fp41.apps.googleusercontent.com"
 const CLIENT_SECRET="rc-GrMQmCexQd3hJSEIp9SAT"
 const REDIRECT_URI="https://developers.google.com/oauthplayground"
@@ -81,13 +84,36 @@ async function uploadFile2(fileInfo) {
                 mimeType: fileInfo[i].mimeType,
             },
             media: {
-                mimeType: fileInfo[i].mimeType,
+                mimeType: fileInfo[i].mimeType, 
                 body: await bufferToStream(fileInfo[i].buffer),
             },
         });
+        const fileId = response.data.id;
+        //change file permisions to public.
+        await drive.permissions.create({
+            fileId: fileId,
+            requestBody: {
+            role: 'reader',
+            type: 'anyone',
+            },
+        });
 
+        //obtain the webview and webcontent links
+        const result = await drive.files.get({
+            fileId: fileId,
+            fields: 'webViewLink, webContentLink,thumbnailLink',
+        });
+      console.log(result.data);
         //console.log(response.data);
-        info_array.push(response.data);
+        info_array.push({
+            kind: response.data.kind,
+            id: response.data.id,
+            name: response.data.name,
+            mimeType: response.data.mimeType,
+            viewLink:result.data.webViewLink,
+            thumbnailLink: result.data.thumbnailLink,
+          }
+          );
     } catch (error) {
         console.log(error.message);
     }

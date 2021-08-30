@@ -4,7 +4,7 @@ const db = require('../db/db.js');
 function getUsername(role, t1) {
    // console.log(t1,role);
     return new Promise(resolve => {
-        if (role==0) {
+        if (role=="false") {
             db.TeacherSchema.findOne({ username: t1 }, (err, results) => {
                 if (err) throw err;
                 console.log(results)
