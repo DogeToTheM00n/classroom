@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import axios from "../../axiosClass";
 import classes from "./AssignmentDetail.module.css";
 import { Redirect } from "react-router-dom";
-
+import File from '../File/File'
 const AssignmentDetail = (props) => {
   const [state, setState] = useState({
     id: '',
@@ -17,17 +17,18 @@ const AssignmentDetail = (props) => {
     marks: '',
     maxmarks: '',
     files: [],
-    studentFiles: []
+    studentFiles: [],
+    submittedState: 0,
   });
   const user = useSelector((state) => state.user);
   const auth = useSelector((state) => state.auth);
   const searchParams = new URLSearchParams(props.location.search);
-  const params = {};
-  for (const [key, value] of searchParams) {
-    params[key] = value;
-  }
-  console.log(params);
+
   useEffect(() => {
+    const params = {};
+    for (const [key, value] of searchParams) {
+      params[key] = value;
+    }
     const req = async () => {
       console.log("Hi");
       const response = await axios.get("/api/assignments", {
@@ -35,22 +36,25 @@ const AssignmentDetail = (props) => {
           asg_id: params["id"],
           sub_id: params["sub"],
           username: user.username,
-          role: user.role,
+          role: user.role ? 1 : 0,
         },
       });
+      console.log(response.data)
       setState({
         id: response.data.Asg_array._id,
         title: response.data.Asg_array.asg.title,
         date: new Date(response.data.Asg_array.asg.date),
         deadline: new Date(response.data.Asg_array.asg.deadline),
         description: response.data.Asg_array.asg.body,
-        marks: response.data.User_makrs.marks,
         maxmarks: response.data.Asg_array.asg.points,
         files: response.data.Asg_array.asg.files,
-        studentFiles: response.data.User_makrs.files
+        marks: response.data.User_makrs ? response.data.User_makrs.marks : '',
+        studentFiles: response.data.User_makrs ? response.data.User_makrs.files : [],
+        submittedState: response.data.User_makrs ? response.data.User_makrs.flag : ''
       });
     };
-    req();
+    if (auth)
+      req();
   }, []);
   return (
     <>
@@ -89,7 +93,7 @@ const AssignmentDetail = (props) => {
                       <div>Posted on: {state.date.toLocaleString()}</div>
                       <div>
                         <span>
-                          {state.marks<0?"__":useState} / {state.maxmarks}
+                          {state.marks < 0 ? "__" : null} / {state.maxmarks}
                         </span>{" "}
                         <span style={{ float: "right" }}>Due: {state.deadline.toLocaleString()}</span>
                       </div>
@@ -111,25 +115,19 @@ const AssignmentDetail = (props) => {
                     <div>{state.description}</div>
                   </Card.Text>
                   <div>
-                    {state.files.map((file) => {
-                      return file.name.substr(file.name.length - 3) ===
-                        "pdf" ? (
-                        <div className={classes.Icon} key={file.name}>
-                          <i className="far fa-file-pdf"></i>
-                        </div>
-                      ) : (
-                        <div className={classes.Icon} key={file.name}>
-                          <i className="far fa-images"></i>
-                        </div>
-                      );
-                    })}
+                    {state.files.map((file) => <File key={file.id}
+                      viewLink={file.viewLink}
+                      thumbnailLink={file.thumbnailLink}
+                      name={file.name}
+                      mimeType={file.mimeType} />
+                    )}
                   </div>
                 </Card.Body>
               </Card>
             </div>
             <div>
               {user.role ? (
-                <YourWork files = {state.studentFiles} assignmentId = {state.id}/>
+                <YourWork files={state.studentFiles} assignmentId={state.id} deadline={state.deadline} submittedState={state.submittedState} />
               ) : (
                 <TeacherEditOptions
                   subjectId={props.subjectId}

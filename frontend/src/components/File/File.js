@@ -21,7 +21,7 @@ const File = (props) => {
           )}
         </div>
         <div className={classes.Child2}>
-          <p>{props.name}</p>
+          {props.name}
           <p>{mime.extension(props.mimeType).toUpperCase()}</p>
         </div>
       </div>

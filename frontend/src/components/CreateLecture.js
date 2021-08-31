@@ -26,7 +26,7 @@ const CreateLecture = (props) => {
         day: state.day,
         startTime: state.startTime,
         endTime: state.endTime,
-        sub_id: 'tcT1L4'
+        sub_id: props.subID
 
       })
       console.log(response)

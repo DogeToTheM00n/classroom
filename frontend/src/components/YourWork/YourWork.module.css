@@ -1,3 +1,13 @@
 .btn{
    width: 100% !important;
 }
+
+.btnActive{
+   background-color: #064420;
+   width: 100% !important;
+}
+
+.btnDisabled{
+   background-color: #4f4f4f !important;
+   width: 100% !important
+}
