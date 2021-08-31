@@ -10,6 +10,7 @@ const YourWork = (props) => {
   const [selectedFiles, setselectedFiles] = useState(null);
   const [error, setError] = useState("")
   const user = useSelector((state)=>state.user)
+  const auth = useSelector((state)=>state.auth)
   const handleUpload = (event) => {
     event.preventDefault();
     console.log(selectedFiles);
@@ -34,13 +35,25 @@ const YourWork = (props) => {
           setError("*Something went wrong!!")
         }
       }
-      req();
+      if(auth)
+        req();
       
     }
   };
 
   const submitHandler = () => {
     //change state of assignment for the student in database
+    const req = async () => {
+      const response = await axios.post("api/submitAssignment", {
+        deadline: props.deadline,
+        asg_id: props.assignmentId,
+        username: user.username
+      })
+      if(response.data)
+        window.location.reload();
+    }
+    if(auth && props.submittedState!=3)
+    req();
   };
   return (
     <Card
@@ -88,8 +101,9 @@ const YourWork = (props) => {
               type="submit"
               className={styles.btn}
               onClick={submitHandler}
+              className={props.submittedState==3?styles.btnDisabled:styles.btnActive}
             >
-              Hand in
+              {props.submittedState==3?<span>Submitted</span>:<span>Hand In</span>}
             </Button>
           </div>
         </Card.Text>

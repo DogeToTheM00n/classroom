@@ -8,6 +8,7 @@
   border-radius: 1%;
 }
 .Child2 {
+  word-wrap: break-word;
   padding: 0.8vw;
   border: 1px solid #06442027;
   border-radius: 1%;
