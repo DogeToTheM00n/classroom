@@ -1,5 +1,6 @@
 // Requiring Dependencies
-
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const db = require("./db/db.js")
 const basicValidation = require("./routes/signupAndLogin");
