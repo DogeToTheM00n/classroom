@@ -3,12 +3,13 @@ import Menu from "./components/Menu.js";
 import Auth from "./containers/Auth/Auth.js";
 import "./App.css";
 import Footer from "./components/Footer/Footer.js";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import Sidebar from "./components/Sidebar.js";
 import Subject from "./containers/Subject/Subject.js";
 import Dashboard from "./containers/Dashboard.js";
 import Marks from "./containers/Marks/Marks.js";
+import Assignment from "./components/AssignmentDetail/AssignmenDetail.js";
 
 class App extends Component {
   state = {
@@ -28,6 +29,7 @@ class App extends Component {
         <Switch>
           <Route path="/score" component={Marks} />
           <Route path="/subject" component={Subject} />
+          <Route path="/assignment" component={Assignment} />
           <Route path="/home" component={Dashboard} />
           <Route path="*" component={Auth} />
         </Switch>
