@@ -5,7 +5,7 @@
   border: 1px solid #06442027;
   box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.2);
   border-radius: 1%;
-  margin: 3vh auto ;
+  margin: 3vh auto;
 }
 .Flex {
   display: flex;
@@ -28,25 +28,25 @@
 :global .fa-file-pdf {
   font-size: 1.9vw;
 }
-.Footer{
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  margin-top: 2vh;
-  min-height: 8vh;
-}
-.Button2{
+.Button2 {
   font-size: 1.2vw;
   color: white;
-  background-color:#064420;
+  background-color: #064420;
   border: none;
-  /* margin: 0; */
+  display: inline-block;
+  margin-top: 1.7vh;
   padding: 1.7vh 1.5vw;
   border-radius: 2%;
   text-decoration: none;
 }
-.Button2:hover, .Button2:active{
+.Button2:hover,
+.Button2:active {
   text-decoration: none;
-  background-color:white;
+  background-color: white;
   color: #064420;
+}
+.Files {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }

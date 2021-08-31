@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./Post.module.css";
 import { Link } from "react-router-dom";
+import File from "../../../components/File/File.js";
 
 const Post = (props) => {
   const date = new Date(props.date);
@@ -9,9 +10,11 @@ const Post = (props) => {
     <div className={classes.Post}>
       <div className={classes.Flex}>
         <div>
-        {(props.type === true || props.type === false) && (
-          <p style={{fontSize:"2.5vh", fontWeight:"bold"}}>{props.title}</p>
-        )}
+          {(props.type === true || props.type === false) && (
+            <p style={{ fontSize: "2.5vh", fontWeight: "bold" }}>
+              {props.title}
+            </p>
+          )}
           <p>{props.username}</p>
           <p>{date.toLocaleString()}</p>
         </div>
@@ -21,16 +24,16 @@ const Post = (props) => {
       </div>
       <p>{props.body}</p>
       <div className={classes.Footer}>
-        <div>
+        <div className={classes.Files}>
           {props.urls.map((file) => {
-            return file.name.substr(file.name.length - 3) === "pdf" ? (
-              <div className={classes.Icon} key={file.name}>
-                <i className="far fa-file-pdf"></i>
-              </div>
-            ) : (
-              <div className={classes.Icon} key={file.name}>
-                <i className="far fa-images"></i>
-              </div>
+            return (
+              <File
+                key={file.id}
+                viewLink={file.viewLink}
+                thumbnailLink={file.thumbnailLink}
+                name={file.name}
+                mimeType={file.mimeType}
+              />
             );
           })}
         </div>
