@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b01ea4de.chunk.css",
+    "main.js": "/static/js/main.49cd8aaf.chunk.js",
+    "main.js.map": "/static/js/main.49cd8aaf.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.16980b76.js",
+    "runtime-main.js.map": "/static/js/runtime-main.16980b76.js.map",
+    "static/css/2.818011ed.chunk.css": "/static/css/2.818011ed.chunk.css",
+    "static/js/2.f765770d.chunk.js": "/static/js/2.f765770d.chunk.js",
+    "static/js/2.f765770d.chunk.js.map": "/static/js/2.f765770d.chunk.js.map",
+    "static/js/3.0fc9af7f.chunk.js": "/static/js/3.0fc9af7f.chunk.js",
+    "static/js/3.0fc9af7f.chunk.js.map": "/static/js/3.0fc9af7f.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.818011ed.chunk.css.map": "/static/css/2.818011ed.chunk.css.map",
+    "static/css/main.b01ea4de.chunk.css.map": "/static/css/main.b01ea4de.chunk.css.map",
+    "static/js/2.f765770d.chunk.js.LICENSE.txt": "/static/js/2.f765770d.chunk.js.LICENSE.txt",
+    "static/media/googlelogo_clr_74x24px.a43fa784.svg": "/static/media/googlelogo_clr_74x24px.a43fa784.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.16980b76.js",
+    "static/css/2.818011ed.chunk.css",
+    "static/js/2.f765770d.chunk.js",
+    "static/css/main.b01ea4de.chunk.css",
+    "static/js/main.49cd8aaf.chunk.js"
+  ]
+}
