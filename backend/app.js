@@ -11,6 +11,7 @@ const lectures = require("./routes/lectures.js");
 const calender = require("./routes/calender.js");
 const uploadasg = require("./routes/UploadAssignment.js");
 const marks = require("./routes/marks.js");
+const oauth = require("./external_api/oauth.js");
 const multer = require('multer')
 const cors = require("cors");
 
@@ -24,6 +25,10 @@ app.use(express.json());
 app.use(cors());
 
 db.ConnectWithDatabase();
+
+app.get("/",(req,res)=>{
+    res.send("up");
+});
 
 //Signup
 app.post("/api/signup", (req, res) => {
@@ -109,7 +114,10 @@ app.get("/api/calender", (req, res) => {
     calender.GetSchedule(req, res);
 });
 
-
+app.get("/api/oauth",(req, res)=>{
+    console.log("alalal");
+oauth.urlGoogle();
+})
 
 
 
