@@ -9,6 +9,7 @@ const assignment = require("./routes/assignments.js");
 const content = require("./routes/content.js");
 const lectures = require("./routes/lectures.js");
 const calender = require("./routes/calender.js");
+const uploadasg = require("./routes/UploadAssignment.js");
 const multer = require('multer')
 const cors = require("cors");
 
@@ -61,7 +62,6 @@ app.post("/api/joinClass", (req, res) => {
 })
 
 
-
 // Assignments Routes
 
 app.post("/api/assignments", upload.any(), (req, res) => {
@@ -72,13 +72,16 @@ app.post("/api/assignments", upload.any(), (req, res) => {
 
 app.get("/api/assignments", (req, res) => {
     assignment.ViewAssignmentDetails(req, res);
-})
+});
 
+app.post("/api/uploadAssignment", upload.any(), (req, res) => {
+    uploadasg.uploadAsg(req, res);
+});
 
 // Content Routes
 app.post("/api/content", upload.any(), (req, res) => {
     content.SaveContent(req, res);
-})
+});
 
 
 // Lecture routes

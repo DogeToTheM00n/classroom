@@ -104,7 +104,9 @@ function updateSchema(id, mutableObject) {
 function CheckUserExistance(username, id) {
     //console.log(username, id);
     return new Promise(resolve => {
-        db.StudentSchema.find({ username: username, subjectsIDArray: { "$in": [{"subjectId":id}] } }, (err, result) => {
+        db.StudentSchema.find({
+             username: username, 
+            subjectsIDArray: { "$in": [{"subjectId":id}] } }, (err, result) => {
             if (err) throw err;
             console.log(result);
             console.log(result.length);

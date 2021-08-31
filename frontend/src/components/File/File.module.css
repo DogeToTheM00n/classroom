@@ -1,0 +1,16 @@
+.Flex {
+  display: inline-flex;
+  margin: 0 40vw;
+}
+.Child1 {
+  border: 1px solid #06442027;
+  border-radius: 1%;
+}
+.Child2 {
+  padding: 0.8vw;
+  border: 1px solid #06442027;
+  border-radius: 1%;
+}
+.Flex p {
+  margin: 0;
+}
