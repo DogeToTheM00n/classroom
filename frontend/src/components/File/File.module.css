@@ -1,6 +1,6 @@
 .Flex {
   display: inline-flex;
-  margin: 0 40vw;
+  margin: 2vh auto;
 }
 .Child1 {
   border: 1px solid #06442027;
@@ -13,4 +13,7 @@
 }
 .Flex p {
   margin: 0;
+}
+.Child1 i{
+  margin: 1vw;
 }

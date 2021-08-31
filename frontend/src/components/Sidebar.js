@@ -18,9 +18,9 @@ const Sidebar = () => {
           <Link to = "/calendar" className="menu-item">
             <i className="fas fa-clipboard-list"></i>
           </Link>
-          <a href="#" className="menu-item">
+          <Link to = "/profile" className="menu-item">
             <i className="fa fa-user" aria-hidden="true"></i>
-          </a>
+          </Link>
         </menu>
       </div>
     </>
