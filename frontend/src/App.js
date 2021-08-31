@@ -10,6 +10,7 @@ import Subject from "./containers/Subject/Subject.js";
 import Dashboard from "./containers/Dashboard.js";
 import Marks from "./containers/Marks/Marks.js";
 import Assignment from "./components/AssignmentDetail/AssignmenDetail.js";
+import TimeTable from "./components/TimeTable.js";
 
 class App extends Component {
   state = {
@@ -31,6 +32,7 @@ class App extends Component {
           <Route path="/subject" component={Subject} />
           <Route path="/assignment" component={Assignment} />
           <Route path="/home" component={Dashboard} />
+          <Route path="/calendar" component={TimeTable} />
           <Route path="*" component={Auth} />
         </Switch>
         {this.props.auth && <Sidebar />}

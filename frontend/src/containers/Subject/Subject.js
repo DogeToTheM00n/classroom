@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import axios from "../../axiosClass.js";
 import Modal from "../../components/PostTeacher/PostTeacher.js";
 import Edit from "./Edit/Edit.js";
+import CreateLecture from "../../components/CreateLecture";
 
 class Subject extends Component {
   state = {
@@ -20,6 +21,7 @@ class Subject extends Component {
     filter: 0,
     showTeacherModal: false,
     showEditModal: false,
+    showCreateLectureModal: false
   };
   componentDidMount() {
     // API call to /subject GET
@@ -61,12 +63,18 @@ class Subject extends Component {
   showEditModal = () => {
     this.setState({ showEditModal: true });
   };
+  showCreateLectureModal = () => {
+    this.setState({ showCreateLectureModal: true});
+  }
   handleCloseEdit = () => {
     this.setState({ showEditModal: false });
   };
   handleCloseTeacher = () => {
     this.setState({ showTeacherModal: false });
   };
+  handleCloseCreateLecture = () => {
+    this.setState({ showCreateLectureModal: false});
+  }
   filter = (value) => {
     this.setState({ filter: value });
   };
@@ -83,7 +91,7 @@ class Subject extends Component {
                     <h2>{this.state.name}</h2>
                     <div className={classes.Icons}>
                       <i class="far fa-edit" onClick={this.showEditModal}></i>
-                      <i class="far fa-calendar-plus"></i>
+                      <i class="far fa-calendar-plus" onClick={this.showCreateLectureModal}></i>
                       <Link to={this.state.link}>
                         <i class="fas fa-video"></i>
                       </Link>
@@ -205,6 +213,11 @@ class Subject extends Component {
             <Modal
               show={this.state.showTeacherModal}
               handleClose={this.handleCloseTeacher}
+              subID={this.state.id}
+            />
+            <CreateLecture
+              show={this.state.showCreateLectureModal}
+              callback={this.handleCloseCreateLecture}
               subID={this.state.id}
             />
           </>
