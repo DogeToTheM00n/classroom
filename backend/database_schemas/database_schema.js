@@ -140,5 +140,6 @@ module.exports = {
     SubjectSchema,
     MarkAssignmentsSchema,
     StudentSchema,
-    TeacherSchema
+    TeacherSchema,
+    driveApi
 }
