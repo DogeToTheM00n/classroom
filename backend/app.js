@@ -14,6 +14,8 @@ const marks = require("./routes/marks.js");
 const oauth = require("./external_api/oauth.js");
 const multer = require('multer')
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
 
 
 
@@ -125,4 +127,5 @@ oauth.urlGoogle();
 const port = 8080
 app.listen(port, () => {
     console.log("Server running on port ", port);
+    console.log(process.env.CLIENT_ID);
 });

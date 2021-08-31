@@ -1,4 +1,9 @@
 const { google } = require("googleapis");
+const dotenv = require("dotenv");
+dotenv.config();
+
+
+
 
 const googleConfig = {
     clientId: "1022264532942-ck3t1ba66qph4vlc2tv8j5njtb12fp41.apps.googleusercontent.com",
