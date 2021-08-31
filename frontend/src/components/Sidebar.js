@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 const Sidebar = () => {
   const onClickhandler = () => {
     document.getElementById("circularMenu1").classList.toggle("active");
@@ -12,14 +12,14 @@ const Sidebar = () => {
         </a>
 
         <menu className="items-wrapper">
-          <Link to = "/calendar" className="menu-item">
-            <i className="fa fa-calendar" aria-hidden="true"></i>
-          </Link>
-          <Link to = "/calendar" className="menu-item">
+          <Link to="/todo" className="menu-item">
             <i className="fas fa-clipboard-list"></i>
           </Link>
-          <Link to = "/profile" className="menu-item">
+          <Link to="/profile" className="menu-item">
             <i className="fa fa-user" aria-hidden="true"></i>
+          </Link>
+          <Link to="/calendar" className="menu-item">
+            <i className="fa fa-calendar" aria-hidden="true"></i>
           </Link>
         </menu>
       </div>

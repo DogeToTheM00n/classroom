@@ -3,14 +3,14 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState, useEffect } from "react";
 import axios from "../../axiosClass";
-import File from '../File/File'
+import File from "../File/File";
 import styles from "./YourWork.module.css";
 import { useSelector } from "react-redux";
 const YourWork = (props) => {
   const [selectedFiles, setselectedFiles] = useState(null);
-  const [error, setError] = useState("")
-  const user = useSelector((state)=>state.user)
-  const auth = useSelector((state)=>state.auth)
+  const [error, setError] = useState("");
+  const user = useSelector((state) => state.user);
+  const auth = useSelector((state) => state.auth);
   const handleUpload = (event) => {
     event.preventDefault();
     console.log(selectedFiles);
@@ -19,25 +19,23 @@ const YourWork = (props) => {
       Array.from(selectedFiles).forEach((file) => {
         formData.append(file.name, file);
       });
-    
-      formData.append('asg_id', props.assignmentId)
-      formData.append('username', user.username)
+
+      formData.append("asg_id", props.assignmentId);
+      formData.append("username", user.username);
       for (var pair of formData.entries()) {
         console.log(pair[0] + ": " + pair[1]);
       }
       const req = async () => {
-        const response = await axios.post('api/uploadAssignment', formData,{
-            headers: { "Content-Type": "multipart/form-data" }
-          })
-        if(response.data){
+        const response = await axios.post("api/uploadAssignment", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        if (response.data) {
           window.location.reload();
         } else {
-          setError("*Something went wrong!!")
+          setError("*Something went wrong!!");
         }
-      }
-      if(auth)
-        req();
-      
+      };
+      if (auth) req();
     }
   };
 
@@ -47,13 +45,11 @@ const YourWork = (props) => {
       const response = await axios.post("api/submitAssignment", {
         deadline: props.deadline,
         asg_id: props.assignmentId,
-        username: user.username
-      })
-      if(response.data)
-        window.location.reload();
-    }
-    if(auth && props.submittedState!=3)
-    req();
+        username: user.username,
+      });
+      if (response.data) window.location.reload();
+    };
+    if (auth && props.submittedState == 1) req();
   };
   return (
     <Card
@@ -68,13 +64,17 @@ const YourWork = (props) => {
       <Card.Body style={{ color: "#064420" }}>
         <Card.Title>Your Work</Card.Title>
         <Card.Text style={{ fontSize: "0.9vw" }}>
-          {props.files.map((file) => <File key={file.id}
-            viewLink={file.viewLink}
-            thumbnailLink={file.thumbnailLink}
-            name={file.name}
-            mimeType={file.mimeType} />)}
+          {props.files.map((file) => (
+            <File
+              key={file.id}
+              viewLink={file.viewLink}
+              thumbnailLink={file.thumbnailLink}
+              name={file.name}
+              mimeType={file.mimeType}
+            />
+          ))}
           <Form style={{ marginTop: "1vh" }}>
-            {error?<p style={{color: 'red'}}>{error}</p>:null}
+            {error ? <p style={{ color: "red" }}>{error}</p> : null}
             <Form.Group controlId="formFileMultiple" className="mb-3">
               <Form.Control
                 type="file"
@@ -101,9 +101,17 @@ const YourWork = (props) => {
               type="submit"
               className={styles.btn}
               onClick={submitHandler}
-              className={props.submittedState==3?styles.btnDisabled:styles.btnActive}
+              className={
+                props.submittedState == 3
+                  ? styles.btnDisabled
+                  : styles.btnActive
+              }
             >
-              {props.submittedState==3?<span>Submitted</span>:<span>Hand In</span>}
+              {(props.submittedState == 3 || props.submittedState == 2) ? (
+                <span>Submitted</span>
+              ) : (
+                <span>Hand In</span>
+              )}
             </Button>
           </div>
         </Card.Text>
