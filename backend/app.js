@@ -10,6 +10,7 @@ const content = require("./routes/content.js");
 const lectures = require("./routes/lectures.js");
 const calender = require("./routes/calender.js");
 const uploadasg = require("./routes/UploadAssignment.js");
+const marks = require("./routes/marks.js");
 const multer = require('multer')
 const cors = require("cors");
 
@@ -82,9 +83,15 @@ app.post("/api/submitAssignment", (req, res) => {
     uploadasg.UpdateFlag(req, res);
 });
 
-app.put("/api/marks", (req, res)=>{
+app.put("/api/marks", (req, res) => {
     uploadasg.UpdateMarks(req, res);
 });
+
+app.get("/api/markAssignments", (req, res) => {
+    marks.GetStudentsWithAssignment(req, res);
+});
+
+
 // Content Routes
 app.post("/api/content", upload.any(), (req, res) => {
     content.SaveContent(req, res);
