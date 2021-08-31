@@ -10,6 +10,7 @@ import Subject from "./containers/Subject/Subject.js";
 import Dashboard from "./containers/Dashboard.js";
 import Marks from "./containers/Marks/Marks.js";
 import Assignment from "./components/AssignmentDetail/AssignmenDetail.js";
+import File from "./components/File/File.js";
 
 class App extends Component {
   state = {
@@ -35,6 +36,13 @@ class App extends Component {
         </Switch>
         {this.props.auth && <Sidebar />}
         <Footer />
+        <File
+          viewLink="https://drive.google.com/file/d/1KsT3Bv8cz7t31PXehlt5NjsSO6gEgNIG/view?usp=drivesdk"
+          thumbnailLink="https://lh3.googleusercontent.com/HGg9efHaLUv3A34wTfrfwHfqtwHp7Fce_mtiYRUlr3XO75Zzupr9k79Ed8LWezQlmw-oMzrSvCIBpbI"
+          name="Q4(6 link derivation).pdf"
+          mimeType="application/pdf"
+
+        />
       </div>
     );
   }
