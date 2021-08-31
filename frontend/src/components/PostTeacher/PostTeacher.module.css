@@ -1,0 +1,17 @@
+.Header{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.Header p{
+    display: inline-block;
+    margin: 0 auto;
+    cursor: pointer;
+}
+.Active{
+    color: #064420;
+    border-bottom: 5px solid #E4EFE7;
+}
+.Btn{
+    border: none !important;
+}

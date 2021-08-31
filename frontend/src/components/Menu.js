@@ -5,6 +5,7 @@ import { useState } from "react";
 import CreateClassModal from "./CreateClassModal";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Menu = () => {
@@ -12,6 +13,7 @@ const Menu = () => {
   const auth = useSelector((state) => state.auth);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const location = useLocation();
   const onClickHandler = () => {
     setShow(!show);
   };
@@ -42,7 +44,9 @@ const Menu = () => {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            {auth && <i onClick={onClickHandler} className="fa fa-plus"></i>}
+            {!(location.pathname === "/subject") && auth && (
+              <i onClick={onClickHandler} className="fa fa-plus"></i>
+            )}
           </Navbar.Text>
           {auth && (
             <Navbar.Text>
@@ -51,7 +55,7 @@ const Menu = () => {
           )}
         </Navbar.Collapse>
       </Navbar>
-      {auth&&user.role ? (
+      {auth && user.role ? (
         <JoinModalForm show={show} callback={callback} />
       ) : (
         <CreateClassModal show={show} callback={callback} />

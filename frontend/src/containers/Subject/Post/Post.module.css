@@ -9,7 +9,7 @@
 }
 .Flex {
   display: flex;
-  width: 40%;
+  width: 100%;
   justify-content: space-between;
   text-align: left;
   border-bottom: 5px solid #e4efe7;
@@ -33,11 +33,20 @@
   width: 100%;
   justify-content: space-between;
   margin-top: 2vh;
+  min-height: 8vh;
 }
 .Button2{
   font-size: 1.2vw;
   color: white;
   background-color:#064420;
   border: none;
-  padding: 0 1.5vw;
+  /* margin: 0; */
+  padding: 1.7vh 1.5vw;
+  border-radius: 2%;
+  text-decoration: none;
+}
+.Button2:hover, .Button2:active{
+  text-decoration: none;
+  background-color:white;
+  color: #064420;
 }

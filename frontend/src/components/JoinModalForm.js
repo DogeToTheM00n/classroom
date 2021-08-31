@@ -20,6 +20,7 @@ const JoinModalForm = (props) => {
         event.preventDefault()
         if (!classCode) {
             setError("*Enter Class Code")
+            return
         }
         const req = async () => {
             const config = {
@@ -36,7 +37,6 @@ const JoinModalForm = (props) => {
             } else{
                 history.push(`/subject?id=${response.data._id}`);
                 document.querySelector(".btn-close").click();
-                
             }
         };
         req();
