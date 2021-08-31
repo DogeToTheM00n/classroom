@@ -78,6 +78,10 @@ app.post("/api/uploadAssignment", upload.any(), (req, res) => {
     uploadasg.uploadAsg(req, res);
 });
 
+app.post("/api/submitAssignment", (req, res) => {
+    uploadasg.UpdateFlag(req, res);
+});
+
 // Content Routes
 app.post("/api/content", upload.any(), (req, res) => {
     content.SaveContent(req, res);
