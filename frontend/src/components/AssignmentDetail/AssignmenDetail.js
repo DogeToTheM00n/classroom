@@ -9,6 +9,7 @@ import { Redirect } from "react-router-dom";
 
 const AssignmentDetail = (props) => {
   const [state, setState] = useState({
+    id: '',
     title: '',
     date: '',
     deadline: '',
@@ -16,6 +17,7 @@ const AssignmentDetail = (props) => {
     marks: '',
     maxmarks: '',
     files: [],
+    studentFiles: []
   });
   const user = useSelector((state) => state.user);
   const auth = useSelector((state) => state.auth);
@@ -37,6 +39,7 @@ const AssignmentDetail = (props) => {
         },
       });
       setState({
+        id: response.data.Asg_array._id,
         title: response.data.Asg_array.asg.title,
         date: new Date(response.data.Asg_array.asg.date),
         deadline: new Date(response.data.Asg_array.asg.deadline),
@@ -44,6 +47,7 @@ const AssignmentDetail = (props) => {
         marks: response.data.User_makrs.marks,
         maxmarks: response.data.Asg_array.asg.points,
         files: response.data.Asg_array.asg.files,
+        studentFiles: response.data.User_makrs.files
       });
     };
     req();
@@ -125,7 +129,7 @@ const AssignmentDetail = (props) => {
             </div>
             <div>
               {user.role ? (
-                <YourWork />
+                <YourWork files = {state.studentFiles} assignmentId = {state.id}/>
               ) : (
                 <TeacherEditOptions
                   subjectId={props.subjectId}

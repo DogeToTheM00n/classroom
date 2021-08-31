@@ -1,6 +1,7 @@
 .Flex {
-  display: inline-flex;
-  margin: 0 40vw;
+  display: flex;
+  margin: 2vh auto;
+  min-width: 10vw;
 }
 .Child1 {
   border: 1px solid #06442027;
@@ -10,7 +11,12 @@
   padding: 0.8vw;
   border: 1px solid #06442027;
   border-radius: 1%;
+  width: 11.5vw;
 }
 .Flex p {
   margin: 0;
+}
+
+.Flex img{
+  object-fit: contain;
 }
