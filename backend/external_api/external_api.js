@@ -12,12 +12,14 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const CLIENT_ID =
-  "1022264532942-ck3t1ba66qph4vlc2tv8j5njtb12fp41.apps.googleusercontent.com";
-const CLIENT_SECRET = "rc-GrMQmCexQd3hJSEIp9SAT";
-const REDIRECT_URI = "https://developers.google.com/oauthplayground";
-const REFRESH_TOKEN =
-  "1//04DiaCUiICxIUCgYIARAAGAQSNwF-L9IrqD__qokKR_U3rhgpjImcubglli1EiIAQzQKY36uQwlz9sYTyFItVQPoq_QWvO30N2sk";
+
+
+
+
+const CLIENT_ID="1022264532942-ck3t1ba66qph4vlc2tv8j5njtb12fp41.apps.googleusercontent.com"
+const CLIENT_SECRET="rc-GrMQmCexQd3hJSEIp9SAT"
+const REDIRECT_URI="https://developers.google.com/oauthplayground"
+const REFRESH_TOKEN="1//04DiaCUiICxIUCgYIARAAGAQSNwF-L9IrqD__qokKR_U3rhgpjImcubglli1EiIAQzQKY36uQwlz9sYTyFItVQPoq_QWvO30N2sk"
 
 const oauth2Client = new google.auth.OAuth2(
   CLIENT_ID,
@@ -72,19 +74,42 @@ async function uploadFile2(fileInfo) {
       const stream = fileInfo[i].buffer.toString("base64");
       try {
         const response = await drive.files.create({
-          requestBody: {
-            name: fileInfo[i].originalname, //This can be name of your choice
-            mimeType: fileInfo[i].mimeType,
-          },
-          media: {
-            mimeType: fileInfo[i].mimeType,
-            body: await bufferToStream(fileInfo[i].buffer),
-          },
+            requestBody: {
+                name: fileInfo[i].originalname, //This can be name of your choice
+                mimeType: fileInfo[i].mimeType,
+            },
+            media: {
+                mimeType: fileInfo[i].mimeType, 
+                body: await bufferToStream(fileInfo[i].buffer),
+            },
+        });
+        const fileId = response.data.id;
+        //change file permisions to public.
+        await drive.permissions.create({
+            fileId: fileId,
+            requestBody: {
+            role: 'reader',
+            type: 'anyone',
+            },
         });
 
-        console.log("response", response.data);
-        info_array.push(response.data);
-      } catch (error) {
+        //obtain the webview and webcontent links
+        const result = await drive.files.get({
+            fileId: fileId,
+            fields: 'webViewLink, webContentLink,thumbnailLink',
+        });
+      console.log(result.data);
+        //console.log(response.data);
+        info_array.push({
+            kind: response.data.kind,
+            id: response.data.id,
+            name: response.data.name,
+            mimeType: response.data.mimeType,
+            viewLink:result.data.webViewLink,
+            thumbnailLink: result.data.thumbnailLink,
+          }
+          );
+    } catch (error) {
         console.log(error.message);
       }
     }

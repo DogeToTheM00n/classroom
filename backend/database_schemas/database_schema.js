@@ -46,7 +46,9 @@ const driveApi=new Schema({
     kind: String,
     id: String,
     name: String,
-    mimeType: String
+    mimeType: String,
+    viewLink:String,
+    thumbnailLink:String
 });
 
 const ContentSchema = new Schema({
@@ -98,7 +100,7 @@ const SubjectSchema = new Schema({
     description: String,
     contentSchemaArray: [ContentSchema],
     videoLectureLink: String,
-    lectureSchemaArray: [LectureSchema],
+    lectureSchemaArray: [{"lecture":LectureSchema}],
     assignmentsSchemaArray: [{asg:AssignmentsSchema,_id:String}],
     enrolledStudents:[{"username":String}]
 });
