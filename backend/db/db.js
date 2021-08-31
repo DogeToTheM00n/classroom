@@ -4,7 +4,7 @@ const schemas = require("../database_schemas/database_schema.js");
 
 
 //Connect with MongoDB
-const mongoURL = "mongodb://localhost:27017/classroomDB";
+const mongoURL = "mongodb+srv://easysolutions:" + process.env.PASSWORD + "@cluster0.tbfef.mongodb.net/classroomdb?retryWrites=true&w=majority";
 function ConnectWithDatabase(){
     mongoose.connect(mongoURL, { useNewUrlParser: true }, () => {
     console.log("Connected to MongoDB Database");
