@@ -20,6 +20,7 @@ const SubjectSchema = mongoose.model("subjectsSchema", schemas.SubjectSchema);
 const MarkAssignmentsSchema = mongoose.model("makrsAssignmentsSchema", schemas.MarkAssignmentsSchema);
 const StudentSchema = mongoose.model("studentSchema", schemas.StudentSchema);
 const TeacherSchema = mongoose.model("teachersSchema", schemas.TeacherSchema);
+const driveApi = mongoose.model("driveApi", schemas.driveApi);
 
 module.exports = {
     UserSchema,
@@ -30,5 +31,7 @@ module.exports = {
     MarkAssignmentsSchema,
     StudentSchema,
     TeacherSchema,
+    driveApi,
     ConnectWithDatabase
+
 };
