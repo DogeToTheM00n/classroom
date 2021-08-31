@@ -16,8 +16,6 @@ const marks = require("./routes/marks.js");
 const oauth = require("./external_api/oauth.js");
 const multer = require("multer");
 const cors = require("cors");
-
-console.log(process.env.PASSWORD);
 //  Preprocessing
 const upload = multer();
 const app = express();

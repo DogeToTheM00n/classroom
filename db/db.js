@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const schemas = require("../database_schemas/database_schema.js");
 
 //Connect with MongoDB
+// const mongoURL = "mongodb://localhost:27017/classDB";
 const mongoURL =
   "mongodb+srv://easysolutions:" +
   process.env.PASSWORD +
@@ -10,7 +11,7 @@ console.log(mongoURL);
 function ConnectWithDatabase() {
   mongoose
     .connect(mongoURL, { useNewUrlParser: true })
-    .then((res) => console.log(res))
+    .then((res) => console.log("Connected to DB"))
     .catch((err) => console.log(err));
 }
 

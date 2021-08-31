@@ -100,10 +100,12 @@ async function uploadFile2(fileInfo) {
           name: response.data.name,
           mimeType: response.data.mimeType,
           viewLink: result.data.webViewLink,
-          thumbnailLink: result.data.thumbnailLink.substring(
-            0,
-            result.data.thumbnailLink.length - 5
-          ),
+          thumbnailLink: result.data.thumbnailLink
+            ? result.data.thumbnailLink.substring(
+                0,
+                result.data.thumbnailLink.length - 5
+              )
+            : null,
         });
       } catch (error) {
         console.log(error.message);
