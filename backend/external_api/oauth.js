@@ -1,9 +1,9 @@
 const { google } = require("googleapis");
 
 const googleConfig = {
-    clientId: "1022264532942-ck3t1ba66qph4vlc2tv8j5njtb12fp41.apps.googleusercontent.com",
-    cliendSecret: "rc-GrMQmCexQd3hJSEIp9SAT",
-    redirect: "https://3248-2401-4900-5304-8e99-d17f-1836-91be-9b6d.ngrok.io"
+    clientId: process.env.clientId,
+    cliendSecret: process.env.clientSecret,
+    redirect: process.env.redirect
 }
 /**
  * Create the google auth object which gives us access to talk to google's apis.

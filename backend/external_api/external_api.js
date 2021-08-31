@@ -16,10 +16,10 @@ app.use(express.json());
 
 
 
-const CLIENT_ID="1022264532942-ck3t1ba66qph4vlc2tv8j5njtb12fp41.apps.googleusercontent.com"
-const CLIENT_SECRET="rc-GrMQmCexQd3hJSEIp9SAT"
-const REDIRECT_URI="https://developers.google.com/oauthplayground"
-const REFRESH_TOKEN="1//04DiaCUiICxIUCgYIARAAGAQSNwF-L9IrqD__qokKR_U3rhgpjImcubglli1EiIAQzQKY36uQwlz9sYTyFItVQPoq_QWvO30N2sk"
+const CLIENT_ID=process.env.CLIENT_ID
+const CLIENT_SECRET=process.env.CLIENT_SECRET
+const REDIRECT_URI=process.env.REDIRECT_URI
+const REFRESH_TOKEN=process.env.REFRESH_TOKEN
 
 const oauth2Client = new google.auth.OAuth2(
   CLIENT_ID,
