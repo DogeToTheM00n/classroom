@@ -14,15 +14,26 @@
   display: inline-block;
   margin: 0 0.2vw;
 }
-.Child{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 2vh;
-    border-left: 4px solid #064420;
+.Child {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2vh;
+  border-left: 4px solid #064420;
 }
-:global .fa-user-circle{
-    font-size: 3vw;
-    margin-bottom: 3vh;
-    color: #064420;
+:global .fa-user-circle {
+  font-size: 3vw;
+  margin-bottom: 3vh;
+  color: #064420;
+}
+.Button {
+  font-size: 1.2vw;
+  color: white;
+  background-color: #064420;
+  border: none;
+  display: inline-block;
+  margin-top: 1.7vh;
+  padding: 1.7vh 1.5vw;
+  border-radius: 2%;
+  text-decoration: none;
 }

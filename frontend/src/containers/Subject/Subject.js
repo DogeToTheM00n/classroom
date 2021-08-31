@@ -91,7 +91,7 @@ class Subject extends Component {
                     <h2>{this.state.name}</h2>
                     <div className={classes.Icons}>
                       <i class="far fa-edit" onClick={this.showEditModal}></i>
-                      <i class="far fa-calendar-plus" onClick={this.showCreateLectureModal}></i>
+                      {!this.props.user.role&&<i class="far fa-calendar-plus" onClick={this.showCreateLectureModal}></i>}
                       <Link to={this.state.link}>
                         <i class="fas fa-video"></i>
                       </Link>
@@ -230,6 +230,7 @@ class Subject extends Component {
 const mapStateToProps = (state) => {
   return {
     auth: state.auth,
+    user: state.user,
   };
 };
 

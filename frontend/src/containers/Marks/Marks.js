@@ -5,45 +5,59 @@ import Assignment from "./Assignment/Assignment.js";
 import Accordion from "react-bootstrap/Accordion";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import axios from "../../axiosClass.js";
 
 class Marks extends Component {
   state = {
-    title: "Assignment 1",
-    postdate: "2021-08-29 14:12:08.000Z",
-    points: 100,
-    duedate: "2021-08-31 14:12:08.000Z",
-    assignments: [
-      {
-        id: 1,
-        username: "Ravi Chopra",
-        marks: -1,
-        urls: "",
-        flag: 1, //1 - not submitted, 2 - Done late, 3- submitted before deadline
-      },
-      {
-        id: 2,
-        username: "Ravi Chopra",
-        marks: 10,
-        urls: "",
-        flag: 2, //1 - not submitted, 2 - Done late, 3- submitted before deadline
-      },
-      {
-        id: 3,
-        username: "Ravi Chopra",
-        marks: 10,
-        urls: "",
-        flag: 3, //1 - not submitted, 2 - Done late, 3- submitted before deadline
-      },
-    ],
+    title: "",
+    postdate: "",
+    points: 0,
+    duedate: "",
+    assignments: [],
   };
-  componentDidMount() {}
+  componentDidMount() {
+    // axios call
+    const searchParams = new URLSearchParams(this.props.location.search);
+    const params = {};
+    for (const [key, value] of searchParams) {
+      params[key] = value;
+    }
+    axios
+      .get("/api/markAssignments", {
+        params: {
+          sub_id: params["sub"],
+          asg_id: params["asg"],
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          title: res.data.asg_details.asg.title,
+          postdate: res.data.asg_details.asg.date,
+          points: res.data.asg_details.asg.points,
+          duedate: res.data.asg_details.asg.deadline,
+        });
+        const assignments = [];
+        res.data.marks_array.forEach((item) => {
+          assignments.push({
+            id: item.marks._id,
+            assign_id: item.marks.assignmentId,
+            username: item.username,
+            marks: item.marks.marks,
+            urls: item.marks.files,
+            flag: item.marks.flag,
+          });
+        });
+        this.setState({ assignments: assignments });
+      });
+  }
   render() {
     const newPostDate = new Date(this.state.postdate);
     const newDueDate = new Date(this.state.duedate);
     return (
       <>
-        {!this.props.auth && <Redirect to="/" />}
-        {this.props.auth && (
+        {(!this.props.auth || this.props.user.role) && <Redirect to="/" />}
+        {this.props.auth && !this.props.user.role && (
           <>
             <div className={classes.Parent}>
               <Card
@@ -83,6 +97,7 @@ class Marks extends Component {
                 {this.state.assignments.map((assignment) => {
                   return (
                     <Assignment
+                      assign_id={assignment.assign_id}
                       key={assignment.id}
                       id={assignment.id}
                       username={assignment.username}
@@ -106,6 +121,7 @@ class Marks extends Component {
 const mapStateToProps = (state) => {
   return {
     auth: state.auth,
+    user: state.user,
   };
 };
 

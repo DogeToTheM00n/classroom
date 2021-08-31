@@ -1,5 +1,6 @@
 // Requiring Dependencies
-
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const db = require("./db/db.js")
 const basicValidation = require("./routes/signupAndLogin");
@@ -122,7 +123,7 @@ oauth.urlGoogle();
 
 
 
-const port = 8080
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log("Server running on port ", port);
 });

@@ -42,8 +42,6 @@
 .Button2:hover,
 .Button2:active {
   text-decoration: none;
-  background-color: white;
-  color: #064420;
 }
 .Files {
   display: flex;

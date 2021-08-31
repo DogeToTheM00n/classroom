@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import classes from "./Assignment.module.css";
+import File from "../../../components/File/File.js";
+import axios from "../../../axiosClass.js";
 
 class Assignment extends Component {
   state = {
@@ -10,7 +12,18 @@ class Assignment extends Component {
     this.setState({ marks: event.target.value });
   };
   updateMarks = (event) => {
-    console.log(this.state.marks);
+    axios
+      .put("/api/marks", null, {
+        params: {
+          username: this.props.username,
+          asg_id: this.props.assign_id,
+          marks: event.target.value,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ marks: event.target.value });
+      });
   };
   render() {
     const date = new Date();
@@ -43,9 +56,15 @@ class Assignment extends Component {
           </div>
         </Accordion.Header>
         <Accordion.Body style={{ width: "30vw" }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, qui
+          {this.props.urls.map((file) => (
+            <File
+              key={file.id}
+              viewLink={file.viewLink}
+              thumbnailLink={file.thumbnailLink}
+              name={file.name}
+              mimeType={file.mimeType}
+            />
+          ))}
         </Accordion.Body>
       </Accordion.Item>
     );

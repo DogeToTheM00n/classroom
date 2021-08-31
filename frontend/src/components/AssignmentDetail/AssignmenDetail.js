@@ -9,6 +9,7 @@ import { Redirect } from "react-router-dom";
 import File from '../File/File'
 const AssignmentDetail = (props) => {
   const [state, setState] = useState({
+    subId: '',
     id: '',
     title: '',
     date: '',
@@ -30,7 +31,6 @@ const AssignmentDetail = (props) => {
       params[key] = value;
     }
     const req = async () => {
-      console.log("Hi");
       const response = await axios.get("/api/assignments", {
         params: {
           asg_id: params["id"],
@@ -41,6 +41,7 @@ const AssignmentDetail = (props) => {
       });
       console.log(response.data)
       setState({
+        subId: params["sub"],
         id: response.data.Asg_array._id,
         title: response.data.Asg_array.asg.title,
         date: new Date(response.data.Asg_array.asg.date),
@@ -93,7 +94,7 @@ const AssignmentDetail = (props) => {
                       <div>Posted on: {state.date.toLocaleString()}</div>
                       <div>
                         <span>
-                          {state.marks < 0 ? "__" : null} / {state.maxmarks}
+                          {state.marks < 0 ? "__" : state.marks} / {state.maxmarks}
                         </span>{" "}
                         <span style={{ float: "right" }}>Due: {state.deadline.toLocaleString()}</span>
                       </div>
@@ -130,8 +131,8 @@ const AssignmentDetail = (props) => {
                 <YourWork files={state.studentFiles} assignmentId={state.id} deadline={state.deadline} submittedState={state.submittedState} />
               ) : (
                 <TeacherEditOptions
-                  subjectId={props.subjectId}
-                  assignmentId={props.assignmentId}
+                  sub={state.subId}
+                  asg={state.id}
                 />
               )}
             </div>
