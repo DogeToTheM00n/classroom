@@ -84,8 +84,8 @@ function ChangeFlagStatus(username, asg_id, deadline) {
                     }
                     if (index != -1) {
                         console.log("Index is ", index);
-                        deadline_time=Date.parse(deadline);
-                        d_time=new Date(deadline_time);
+                        deadline_time = Date.parse(deadline);
+                        d_time = new Date(deadline_time);
                         console.log("deadline is ", d_time.getTime());
                         const curr_time = new Date();
                         console.log("curr_time is ", curr_time.getTime());
@@ -116,8 +116,41 @@ function ChangeFlagStatus(username, asg_id, deadline) {
             });
 
 
-    }); u
+    });
 }
+
+
+function updateMarksInDb(marks, username, asg_id) {
+
+    return new Promise((resolve, reject) => {
+        db.StudentSchema.findOne({ "username": username }, (err, student) => {
+            if (err) throw err;
+            var index = -1;
+            for (var i = 0; i < student.marksAssignmentSchemaArray.length; i++) {
+                if (asg_id == student.marksAssignmentSchemaArray[i].assignmentId) {
+                    index = i;
+                    break;
+                }
+            }
+            console.log("index is ", index);
+            console.log(student.marksAssignmentSchemaArray[index]);
+            if (index != -1) {
+                student.marksAssignmentSchemaArray[index].marks = marks;
+
+                student.save((err) => {
+                    if (err) throw err;
+                    resolve(true);
+
+                });
+
+
+            }
+            resolve(true);
+        });
+
+    })
+}
+
 
 
 async function uploadAsg(req, res) {
@@ -145,6 +178,12 @@ async function UpdateFlag(req, res) {
     res.json(true);
 }
 
+async function UpdateMarks(req, res) {
+    const marks = req.query.marks;
+    const asg_id = req.query.asg_id;
+    const username = req.query.username;
+    await updateMarksInDb(marks, username, asg_id);
+    res.send(true);
+}
 
-
-module.exports = { uploadAsg, UpdateFlag }
+module.exports = { uploadAsg, UpdateFlag, UpdateMarks }

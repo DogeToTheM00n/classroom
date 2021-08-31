@@ -82,6 +82,9 @@ app.post("/api/submitAssignment", (req, res) => {
     uploadasg.UpdateFlag(req, res);
 });
 
+app.put("/api/marks", (req, res)=>{
+    uploadasg.UpdateMarks(req, res);
+});
 // Content Routes
 app.post("/api/content", upload.any(), (req, res) => {
     content.SaveContent(req, res);
@@ -98,6 +101,9 @@ app.post("/api/lecture", (req, res) => {
 app.get("/api/calender", (req, res) => {
     calender.GetSchedule(req, res);
 });
+
+
+
 
 
 
